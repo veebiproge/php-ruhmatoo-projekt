@@ -8,7 +8,7 @@
 	//Headaega
 	
 	function() {
-		
+		echo "fix"
 		echo bye
 	}
 	
