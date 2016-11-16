@@ -4,4 +4,10 @@
 	
 	//Headaega
 	
+	function() {
+		
+		echo bye
+	}
+	
+	
 ?>
