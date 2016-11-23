@@ -1,8 +1,8 @@
-[CDB
+# CDB
 
-Sihtrühm:
+1. Sihtrühm:
 	Kirik
-Lehed:
+1. Lehed:
 	Login/Sign up
 	Enda profiil
 	Administreerimine
@@ -12,11 +12,11 @@ Lehed:
 	[logid]
 	[vaatamised]
 
-Liikmed:
+1. Liikmed:
 	Oskar Nikopensius
 	Rando Tomingas
 
-ISSUES:
+## ISSUES:
 	Login/Sign up -----------------> Oskar
 		Leht
 		Andmebaas
@@ -57,8 +57,7 @@ ISSUES:
 Extras:
 
 
-
-Andmebaasid:
+## Andmebaasid:
 	Inimesed:
 		id INT AUTO Primary
 		kasutajanimi UNIQ
@@ -78,7 +77,7 @@ Andmebaasid:
 	Annid/Tööharud/kursused:
 		id INT AUTO Primary
 		inimene INT (viitab inimeste tabelis ID'le)
-		and/tööharu/kursus VARCHAR(50)]
+		and/tööharu/kursus VARCHAR(50)
 		
 	
 
