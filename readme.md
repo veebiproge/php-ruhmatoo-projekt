@@ -58,26 +58,26 @@ Extras:
 
 
 ## Andmebaasid:
-	Inimesed:
+	people:
 		id INT AUTO Primary
-		kasutajanimi UNIQ
-		pw(hash) VARCHAR(128)
+		username UNIQ
+		password VARCHAR(128)
 		email UNIQ
-		eesnimi VARCHAR(50)
-		perenimi VARCHAR(50)
-		sünnikuupäev DATE
-		päästetud DATE
-		ristitud DATE
+		firstname VARCHAR(50)
+		lastname VARCHAR(50)
+		date_of_birth DATE
+		saved DATE
+		baptised DATE
 		aprroved INT (0- ei, 1 - ja 2 - kustutatud/arhiveeritud)
-	Kodugrupid:
+	smallgroups:
 		id INT AUTO Primary
-		nimi VARCHAR(50)
-		aadress VARCHAR(50)
-		juht INT (viitab inimeste tabelis ID'le)
-	Annid/Tööharud/kursused:
+		name VARCHAR(50)
+		address VARCHAR(50)
+		leader INT (viitab inimeste tabelis ID'le)
+	gifts/line_of_work/courses:
 		id INT AUTO Primary
-		inimene INT (viitab inimeste tabelis ID'le)
-		and/tööharu/kursus VARCHAR(50)
+		person INT (viitab inimeste tabelis ID'le)
+		gift/line_of_work/course VARCHAR(50)
 		
 	
 
