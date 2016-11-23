@@ -1,4 +1,4 @@
-CDB
+[CDB
 
 Sihtrühm:
 	Kirik
@@ -78,7 +78,7 @@ Andmebaasid:
 	Annid/Tööharud/kursused:
 		id INT AUTO Primary
 		inimene INT (viitab inimeste tabelis ID'le)
-		and/tööharu/kursus VARCHAR(50)
+		and/tööharu/kursus VARCHAR(50)]
 		
 	
 
