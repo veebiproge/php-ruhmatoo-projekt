@@ -8,8 +8,10 @@
 	//Headaega
 	
 	function() {
+
 		echo "Ehehe.";
-		echo bye;
+
+
 	}
 	
 	
