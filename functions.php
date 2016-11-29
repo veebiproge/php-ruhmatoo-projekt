@@ -5,11 +5,7 @@
 	$database = "if16_case112";
 	$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
 	
-	//require("../class/User.class.php");
-	//$User = new User($mysqli);
 	
-	//require("../class/Helper.class.php");
-	//$Helper = new Helper($mysqli);
 	
 	
 	// functions.php

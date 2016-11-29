@@ -3,7 +3,7 @@
 1. Sihtrühm:
 	Kirik
 1. Lehed:
-	Login/Sign up
+	Log in/Sign up
 	Enda profiil
 	Administreerimine
 	Kodugrupi lisamine
@@ -13,7 +13,7 @@
 	[vaatamised]
 
 1. Liikmed:
-	Oskar Nikopensius
+	Oskar Nikopensius, 
 	Rando Tomingas
 
 ## ISSUES:

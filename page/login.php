@@ -2,7 +2,11 @@
 	
 	require("../functions.php");
 	
+	require("../class/User.class.php");
+	$User = new User($mysqli);
 	
+	require("../class/Helper.class.php");
+	$Helper = new Helper();
 	
 	// kui on juba sisse loginud siis suunan data lehele
 	if (isset($_SESSION["userId"])){
@@ -25,12 +29,36 @@
 	//echo strlen("äö");
 	
 	// MUUTUJAD
-	$signupEmailError = "";
+	$signupUserName = "";
+	$signupUserNameError = "";
 	$signupPasswordError = "";
 	$signupEmail = "";
+	$signupEmailError = "";
+	$firstname = "";
+	$firstnameError = "";
+	$lastname = "";
+	$lastnameError = "";
 	$signupGender = "";
-	
+	$dateOfBirth = "";
 
+	// on üldse olemas selline muutja
+	if( isset( $_POST["signupUserName"] ) ){
+		
+		//jah on olemas
+		//kas on tühi
+		if( empty( $_POST["signupUserName"] ) ){
+			
+			$signupUserNameError = "See väli on kohustuslik";
+			
+		} else {
+			
+			// email olemas 
+			$signupUserName = $_POST["signupUserName"];
+			
+		}
+		
+	} 
+	
 	// on üldse olemas selline muutja
 	if( isset( $_POST["signupEmail"] ) ){
 		
@@ -48,6 +76,7 @@
 		}
 		
 	} 
+	
 	
 	if( isset( $_POST["signupPassword"] ) ){
 		
@@ -70,6 +99,42 @@
 		}
 		
 	}
+	
+	// on üldse olemas selline muutja
+	if( isset( $_POST["firstname"] ) ){
+		
+		//jah on olemas
+		//kas on tühi
+		if( empty( $_POST["firstname"] ) ){
+			
+			$firstnameError = "See väli on kohustuslik";
+			
+		} else {
+			
+			// email olemas 
+			$firstname = $_POST["firstname"];
+			
+		}
+		
+	} 
+	
+	// on üldse olemas selline muutja
+	if( isset( $_POST["lastname"] ) ){
+		
+		//jah on olemas
+		//kas on tühi
+		if( empty( $_POST["lastname"] ) ){
+			
+			$lastnameError = "See väli on kohustuslik";
+			
+		} else {
+			
+			// email olemas 
+			$lastname = $_POST["lastname"];
+			
+		}
+		
+	} 
 	
 	
 	// GENDER
@@ -95,20 +160,26 @@
 		// salvestame ab'i
 		echo "Salvestan... <br>";
 		
-		echo "email: ".$signupEmail."<br>";
-		echo "password: ".$_POST["signupPassword"]."<br>";
+		//echo "email: ".$signupEmail."<br>";
+		//echo "password: ".$_POST["signupPassword"]."<br>";
 		
 		$password = hash("sha512", $_POST["signupPassword"]);
 		
-		echo "password hashed: ".$password."<br>";
+		//echo "password hashed: ".$password."<br>";
 		
 		
 		//echo $serverUsername;
 		
 		// KASUTAN FUNKTSIOONI
+		$signupUserName = $Helper->cleanInput($signupUserName);
 		$signupEmail = $Helper->cleanInput($signupEmail);
+		$firstname = $Helper->cleanInput($firstname);
+		$lastname = $Helper->cleanInput($lastname);
+		$signupGender = $Helper->cleanInput($signupGender);
 		
-		$User->signUp($signupEmail, $Helper->cleanInput($password));
+		$User->signUp($signupUserName, $Helper->cleanInput($password), $signupEmail, $firstname, $lastname, $signupGender);
+		
+		
 		
 	
 	}
@@ -128,14 +199,14 @@
 
 ?>
 
-<?php require("header.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 	<div class="container">
 	
 		<div class="row">
 		
-			<div class="col-sm-3">
-				<h1>Logi sisse</h1>
+			<div class="col-sm-4">
+				<h2>Logi sisse</h2>
 				<form method="POST">
 					<p style="color:red;"><?=$error;?></p>
 					<label>E-post</label>
@@ -156,37 +227,45 @@
 				</form>
 			</div>
 		
-			<div class="col-sm-3 col-sm-offset-3">
-				<h1>Loo kasutaja</h1>
+			<div class="col-sm-4 col-sm-offset-3">
+				<h2>Loo kasutaja</h2>
 				<form method="POST">
 					
-					<label>E-post</label>
-					<br>
 					
-					<input class="form-control" name="signupEmail" type="text" value="<?=$signupEmail;?>"> <?=$signupEmailError;?>
+					<br>
+					<input class="form-control" placeholder="Kasutajanimi" name="signupUserName" type="text" value="<?=$signupUserName;?>"> <?=$signupUserNameError;?>
+					<br><br>
+					
+					<input class="form-control" type="password" name="signupPassword" placeholder="Parool"> <?php echo $signupPasswordError; ?>
+					<br><br>
+					
+					<input class="form-control" placeholder="E-post" name="signupEmail" type="text" value="<?=$signupEmail;?>"> <?=$signupEmailError;?>
+					<br><br>
+					
+					<input class="form-control" placeholder="Eesnimi" name="firstname" type="text" value="<?=$firstname;?>"> <?=$firstnameError;?>
+					<br><br>
+					
+					<input class="form-control" placeholder="Perenimi" name="lastname" type="text" value="<?=$lastname;?>"> <?=$lastnameError;?>
 					<br><br>
 					
 					<?php if($signupGender == "male") { ?>
-						<input type="radio" name="signupGender" value="male" checked> Male<br>
+						<input type="radio" name="signupGender" value="male" checked> Mees<br>
 					<?php }else { ?>
-						<input type="radio" name="signupGender" value="male"> Male<br>
+						<input type="radio" name="signupGender" value="male"> Mees<br>
 					<?php } ?>
 					
 					<?php if($signupGender == "female") { ?>
-						<input type="radio" name="signupGender" value="female" checked> Female<br>
+						<input type="radio" name="signupGender" value="female" checked> Naine<br>
 					<?php }else { ?>
-						<input type="radio" name="signupGender" value="female"> Female<br>
+						<input type="radio" name="signupGender" value="female"> Naine<br>
 					<?php } ?>
 					
 					<?php if($signupGender == "other") { ?>
-						<input type="radio" name="signupGender" value="other" checked> Other<br>
+						<input type="radio" name="signupGender" value="other" checked> Muu<br>
 					<?php }else { ?>
-						<input type="radio" name="signupGender" value="other"> Other<br>
+						<input type="radio" name="signupGender" value="other"> Muu<br>
 					<?php } ?>
 					
-					
-					<br>
-					<input class="form-control" type="password" name="signupPassword" placeholder="Parool"> <?php echo $signupPasswordError; ?>
 					<br><br>
 					<input type="submit" class="btn btn-primary btn-sm btn-block hidden-xs" value="Loo kasutaja">
 					<input type="submit" class="btn btn-primary btn-sm btn-block visible-xs-block" value="Loo kasutaja">
@@ -203,5 +282,5 @@
 	</div>
 	</div>
 	
-<?php require("footer.php"); ?>
+<?php require("../partials/footer.php"); ?>
 
