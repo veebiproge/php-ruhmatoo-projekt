@@ -74,6 +74,7 @@
 			
 				<form action="signup.php">
 					<input type="submit" class="btn btn-primary btn-sm btn-block btn-block hidden-xs" value="Loo kasutaja">
+					<input type="submit" class="btn btn-primary btn-sm btn-block btn-block visible-xs-block" value="Loo kasutaja">
 				</form>
 			
 			

@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 	
 	require("../functions.php");
 	
@@ -129,52 +129,12 @@
 		
 	} 
 	
-	// on 𬤳e olemas selline muutja
-	if( isset( $_POST["dateOfBirth"] ) ){
-		
-		//jah on olemas
-		//kas on t𨩍
-		if( empty( $_POST["dateOfBirth"] ) ){
-			
-			$dateOfBirthError = "See väli on kohustuslik";
-			
-		} else {
-			
-			// email olemas 
-			$dateOfBirth = $_POST["dateOfBirth"];
-			
-		}
-		
-	} 
 	
-	
-	if( isset( $_POST["saved"] ) ){
-		
-		
-		$saved = $_POST["saved"];
-			
-		
-		
-	} 
-	
-	if( isset( $_POST["baptised"] ) ){
-		
-		
-		$baptised = $_POST["baptised"];
-			
-		
-		
-	} 
-	
-	
-	// on 𬤳e olemas selline muutja
 	if( isset( $_POST["dateOfBirth1"] ) ){
 		
-		//jah on olemas
-		//kas on t𨩍
-		if( empty( $_POST["dateOfBirth1"] ) ){
+		if( empty( $_POST["dateOfBirth3"] ) ){
 		
-			$dateOfBirthError = "See väli on kohustuslik";
+			$dateOfBirthError = " Väljad on kohustuslikud!";
 			
 		} else {
 			
@@ -182,12 +142,39 @@
 			$dateOfBirth2 = $_POST["dateOfBirth2"];
 			$dateOfBirth3 = $_POST["dateOfBirth3"];
 			
-			
-			$dateOfBirth = $dateOfBirth1."-".$dateOfBirth2."-".$dateOfBirth3;
+			$dateOfBirth = $dateOfBirth3."-".$dateOfBirth2."-".$dateOfBirth1;
 			
 		}
 		
 	} 
+	
+	
+	if( isset( $_POST["saved3"] ) ){
+		
+		$saved1 = $_POST["saved1"];
+		$saved2 = $_POST["saved2"];
+		$saved3 = $_POST["saved3"];
+			
+		$saved = $saved3."-".$saved2."-".$saved1;
+			
+		
+		
+	} 
+	
+	if( isset( $_POST["baptised3"] ) ){
+		
+		$baptised1 = $_POST["baptised1"];
+		$baptised2 = $_POST["baptised2"];
+		$baptised3 = $_POST["baptised3"];
+			
+		$baptised = $baptised3."-".$baptised2."-".$baptised1;
+			
+		
+		
+	} 
+	
+	
+	
 	
 	
 	
@@ -195,8 +182,18 @@
 	// �htegi errorit
 	
 	if ( isset($_POST["signupEmail"]) && 
-		 isset($_POST["signupPassword"]) && 
+		 isset($_POST["signupPassword"]) &&
+		 isset( $_POST["signupUserName"]) && 
+		 isset( $_POST["firstname"]) &&
+		 isset( $_POST["lastname"]) &&
+		 isset( $_POST["dateOfBirth3"]) &&
+		 
 		 $signupEmailError == "" && 
+		 $signupUserNameError == "" && 
+		 $firstnameError == "" && 
+		 $lastnameError == "" && 
+		 $dateOfBirthError == "" && 
+		 
 		 empty($signupPasswordError)
 		) {
 		
@@ -244,7 +241,7 @@
 		<div class="row" >
 		
 		
-			<div class="col-sm-4 col-sm-offset-4">
+			<div class="col-sm-6 col-sm-offset-3">
 				<h2>Loo kasutaja</h2>
 				<form method="POST">
 					
@@ -265,39 +262,206 @@
 					<input class="form-control" placeholder="Perenimi" name="lastname" type="text" value="<?=$lastname;?>"> <?=$lastnameError;?>
 					<br><br>
 					
-					<div class="col-xs-5">
-					<input class="form-control"   name="dateOfBirth1" type="date" value="<?=$dateOfBirth;?>">
+					<label for="dateOfBirth1">Sünnikuupäev</label><?php echo $dateOfBirthError;?>
+					<br>
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="dateOfBirth1"> 
+						<option selected>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					  </select>
+					</div>
+					
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="dateOfBirth2">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option selected>12</option>
+					  </select>
 					</div>
 					
 					<div class="col-xs-4">
-					<input class="form-control"  name="dateOfBirth2" type="date" value="<?=$dateOfBirth;?>"> 
+					<input class="form-control"  name="dateOfBirth3" placeholder="1990" type="text">
+					</div>
+					<br><br><br>
+					
+					<label for="saved1">Päästetud</label>
+					<br>
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="saved1">
+						<option selected>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					  </select>
+					</div>
+					
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="saved2">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option selected>12</option>
+					  </select>
 					</div>
 					
 					<div class="col-xs-4">
-					<input class="form-control"  name="dateOfBirth3" type="date" value="<?=$dateOfBirth;?>"> <?=$dateOfBirthError;?>
-					<sup>pp/kk/aaaa</sup><br><br>
+					<input class="form-control"  name="saved3" placeholder="1990" type="text"> 
+					</div>
+					<br><br><br>
+					
+					<label for="baptised1">Ristitud</label>
+					<br>
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="baptised1">
+						<option selected>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					  </select>
 					</div>
 					
-					<input class="form-control" placeholder="Päästetud" name="saved" type="date" value="<?=$saved;?>">
-					<br><br>
+					<div class="form-group col-xs-4">
+					  <select class="form-control" name="baptised2">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option selected>12</option>
+					  </select>
+					</div>
 					
-					<input class="form-control" placeholder="Ristitud" name="baptised" type="date" value="<?=$baptised;?>">
-					<br><br>
+					<div class="col-xs-4">
+					<input class="form-control"  name="baptised3" placeholder="1990" type="text">
+					</div>
+					<br><br><br><br>
+					
+					
+				
 					
 					
 			
-					<input type="submit" class="btn btn-primary btn-sm btn-block hidden-xs" value="Loo kasutaja">
-					<input type="submit" class="btn btn-primary btn-sm btn-block visible-xs-block" value="Loo kasutaja">
+					<input type="submit" class="btn btn-success btn-sm btn-block hidden-xs" value="Loo kasutaja">
+					<input type="submit" class="btn btn-success btn-sm btn-block visible-xs-block" value="Loo kasutaja">
 				
 					<br>
+					
 				
-				
+				</form>
 			
 			
 					<form action="login.php">
-						<input type="submit" class="btn btn-success btn-sm btn-block btn-block hidden-xs" value="Kasutaja juba olemas?">
+						<input type="submit" class="btn btn-info btn-sm btn-block btn-block hidden-xs" value="Kasutaja juba olemas?">
+						<input type="submit" class="btn btn-info btn-sm btn-block btn-block visible-xs-block" value="Kasutaja juba olemas?">
 					</form>
-				
+					<br>
+					<br>
 				
 				
 			</div>
