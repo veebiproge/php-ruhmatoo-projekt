@@ -1,15 +1,15 @@
-ï»¿<?php
+<?php
 class User {
 	
 	// klassi sees saab kasutada
 	private $connection;
 	
-	// $User = new User(see); jõuab siia sulgudesse
-	function __construct($mysqli){
+	// $User = new User(see); jÃµuab siia sulgudesse
+	function __construct($link){
 		
 		// klassi sees muutuja kasutamseks $this->
 		// $this viitab sellele klassile
-		$this->connection = $mysqli;
+		$this->connection = $link;
 		
 		
 	}
@@ -27,15 +27,15 @@ class User {
 	
 		echo $this->connection->error;
 		
-		//asendan küsimärgi
+		//asendan kÃ¼simÃ¤rgi
 		$stmt->bind_param("s", $username);
 		
-		//määran väärtused muutujatesse
+		//mÃ¤Ã¤ran vÃ¤Ã¤rtused muutujatesse
 		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb);
 		$stmt->execute();
 		
-		//andmed tulid andmebaasist või mitte
-		// on tõene kui on vähemalt üks vaste
+		//andmed tulid andmebaasist vÃµi mitte
+		// on tÃµene kui on vÃ¤hemalt Ã¼ks vaste
 		if($stmt->fetch()){
 			
 			//oli sellise meiliga kasutaja
@@ -45,7 +45,7 @@ class User {
 				
 				echo "Kasutaja logis sisse ".$id;
 				
-				//määran sessiooni muutujad, millele saan ligi
+				//mÃ¤Ã¤ran sessiooni muutujad, millele saan ligi
 				// teistelt lehtedelt
 				$_SESSION["userId"] = $id;
 				$_SESSION["userUsername"] = $usernameFromDb;
@@ -88,11 +88,7 @@ class User {
 		 	echo "ERROR ".$stmt->error;
 		}
 		
-		$stmt->close();
-		
-		//muidu katkeb ühendus tervele klassile
-		//$mysqli->close();
-		
+		$stmt->close();		
 	}
 	
 	
