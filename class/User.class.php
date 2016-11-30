@@ -5,11 +5,11 @@ class User {
 	private $connection;
 	
 	// $User = new User(see); jõuab siia sulgudesse
-	function __construct($mysqli){
+	function __construct($link){
 		
 		// klassi sees muutuja kasutamseks $this->
 		// $this viitab sellele klassile
-		$this->connection = $mysqli;
+		$this->connection = $link;
 		
 		
 	}
@@ -86,11 +86,7 @@ class User {
 		 	echo "ERROR ".$stmt->error;
 		}
 		
-		$stmt->close();
-		
-		//muidu katkeb ühendus tervele klassile
-		//$mysqli->close();
-		
+		$stmt->close();		
 	}
 	
 	

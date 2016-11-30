@@ -3,7 +3,7 @@
 	require("/home/nikopeos/config.php");
 	
 	$database = "if16_case112";
-	$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
+	$link = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
 	
 	
 	

@@ -3,7 +3,7 @@
 	require("../functions.php");
 	
 	require("../class/User.class.php");
-	$User = new User($mysqli);
+	$User = new User($link);
 	
 	require("../class/Helper.class.php");
 	$Helper = new Helper();
