@@ -168,18 +168,22 @@
 	
 	
 	// on 𬤳e olemas selline muutja
-	if( isset( $_POST["dateOfBirth"] ) ){
+	if( isset( $_POST["dateOfBirth1"] ) ){
 		
 		//jah on olemas
 		//kas on t𨩍
-		if( empty( $_POST["dateOfBirth"] ) ){
-			
+		if( empty( $_POST["dateOfBirth1"] ) ){
+		
 			$dateOfBirthError = "See väli on kohustuslik";
 			
 		} else {
 			
-			// email olemas 
-			$dateOfBirth = $_POST["dateOfBirth"];
+			$dateOfBirth1 = $_POST["dateOfBirth1"];
+			$dateOfBirth2 = $_POST["dateOfBirth2"];
+			$dateOfBirth3 = $_POST["dateOfBirth3"];
+			
+			
+			$dateOfBirth = $dateOfBirth1."-".$dateOfBirth2."-".$dateOfBirth3;
 			
 		}
 		
@@ -261,8 +265,18 @@
 					<input class="form-control" placeholder="Perenimi" name="lastname" type="text" value="<?=$lastname;?>"> <?=$lastnameError;?>
 					<br><br>
 					
-					<input class="form-control" placeholder="Sünniaeg" name="dateOfBirth" type="date" value="<?=$dateOfBirth;?>"> <?=$dateOfBirthError;?>
-					<br><br>
+					<div class="col-xs-5">
+					<input class="form-control"   name="dateOfBirth1" type="date" value="<?=$dateOfBirth;?>">
+					</div>
+					
+					<div class="col-xs-4">
+					<input class="form-control"  name="dateOfBirth2" type="date" value="<?=$dateOfBirth;?>"> 
+					</div>
+					
+					<div class="col-xs-4">
+					<input class="form-control"  name="dateOfBirth3" type="date" value="<?=$dateOfBirth;?>"> <?=$dateOfBirthError;?>
+					<sup>pp/kk/aaaa</sup><br><br>
+					</div>
 					
 					<input class="form-control" placeholder="Päästetud" name="saved" type="date" value="<?=$saved;?>">
 					<br><br>
@@ -275,9 +289,20 @@
 					<input type="submit" class="btn btn-primary btn-sm btn-block hidden-xs" value="Loo kasutaja">
 					<input type="submit" class="btn btn-primary btn-sm btn-block visible-xs-block" value="Loo kasutaja">
 				
+					<br>
+				
+				
+			
+			
+					<form action="login.php">
+						<input type="submit" class="btn btn-success btn-sm btn-block btn-block hidden-xs" value="Kasutaja juba olemas?">
+					</form>
+				
+				
+				
 			</div>
 
-
+			
 	
 	
 	
