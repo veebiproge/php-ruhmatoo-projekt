@@ -186,13 +186,13 @@
 	
 	
 	$error ="";
-	if ( isset($_POST["loginEmail"]) && 
+	if ( isset($_POST["loginUsername"]) && 
 		isset($_POST["loginPassword"]) && 
-		!empty($_POST["loginEmail"]) && 
+		!empty($_POST["loginUsername"]) && 
 		!empty($_POST["loginPassword"])
 	  ) {
 		  
-		$error = $User->login($Helper->cleanInput($_POST["loginEmail"]), $Helper->cleanInput($_POST["loginPassword"]));
+		$error = $User->login($Helper->cleanInput($_POST["loginUsername"]), $Helper->cleanInput($_POST["loginPassword"]));
 		
 	}
 	
@@ -209,11 +209,11 @@
 				<h2>Logi sisse</h2>
 				<form method="POST">
 					<p style="color:red;"><?=$error;?></p>
-					<label>E-post</label>
+					
 					<br>
 					
 					<div class="form-group">
-						<input class="form-control" name="loginEmail" type="text">
+						<input class="form-control" name="loginUsername" placeholder="Kasutajanimi" type="text">
 					</div>
 					<br><br>
 					

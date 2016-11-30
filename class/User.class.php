@@ -16,22 +16,22 @@ class User {
 	
 	//Teised funktsioonid
 	
-	function login ($email, $password) {
+	function login ($username, $password) {
 		
 		$error = "";
 
 		$stmt = $this->connection->prepare("
-		SELECT id, email, password
+		SELECT id, username, password
 		FROM people
-		WHERE email = ?");
+		WHERE username = ?");
 	
 		echo $this->connection->error;
 		
 		//asendan k¸sim‰rgi
-		$stmt->bind_param("s", $email);
+		$stmt->bind_param("s", $username);
 		
 		//m‰‰ran v‰‰rtused muutujatesse
-		$stmt->bind_result($id, $emailFromDb, $passwordFromDb);
+		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb);
 		$stmt->execute();
 		
 		//andmed tulid andmebaasist vıi mitte
@@ -48,7 +48,7 @@ class User {
 				//m‰‰ran sessiooni muutujad, millele saan ligi
 				// teistelt lehtedelt
 				$_SESSION["userId"] = $id;
-				$_SESSION["userEmail"] = $emailFromDb;
+				$_SESSION["userUsername"] = $usernameFromDb;
 				
 				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
