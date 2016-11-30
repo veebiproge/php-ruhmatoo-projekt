@@ -22,6 +22,8 @@
 		exit();
 	}
 	
+	
+	
 ?>
 <?php require("../partials/header.php"); ?>
 
@@ -31,5 +33,16 @@
 
 
 
-Otsing: <input type = "text" name = "search"> <input type = "submit" value = "Otsi"><br>
+Otsing: <input type = "text" name = "search"> <input type = "submit" value = "Otsi"><br><br>
+
+<?php
+	$resultTbl = '<table>';
+		$resultTbl .= '<tr>';
+			$resultTbl .= '<td style = "text-align:center"> Nimi </td>';
+			$resultTbl .= '<td style = "text-align:center"> Perenimi </td>';
+		$resultTbl .= '</tr>';
+		
+	echo $resultTbl
+?>
+
 <?php require("../partials/footer.php"); ?>
