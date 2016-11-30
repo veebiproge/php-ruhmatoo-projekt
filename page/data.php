@@ -25,7 +25,11 @@
 		exit();
 	}
 	
-	$results = $Data->getAllPpl();
+	if (isset($_GET["searchGo"])) {
+		$results = $Data->search($_GET["search"], $_GET["searchBy"]);
+	} else {
+		$results = $Data->getAllPpl();
+	}
 	
 ?>
 <?php require("../partials/header.php"); ?>
@@ -35,9 +39,10 @@
 
 
 
-
-Otsing: <input type = "text" name = "search"> 
-	<select name = "searchby">
+<form>
+	Otsing:	
+	<input type = "text" name = "search">
+	<select name = "searchBy">
 		<option value = "firstname"> Eesnimi </option>
 		<option value = "lastname"> Perenimi </option>
 		<option value = "email"> Email </option>
@@ -45,10 +50,11 @@ Otsing: <input type = "text" name = "search">
 		<option value = "saved"> Päästetud </option>
 		<option value = "baptised"> Ristitud </option>
 	</select>
-	<input type = "submit" value = "Otsi"><br><br>
+	<input type = "submit" name = "searchGo" value = "Otsi"><br><br>
+</form>
 
 <?php
-	$resultTbl = "<table>";
+	$resultTbl = "<table class = 'table'>";
 		$resultTbl .= "<tr border='2'>";
 			$resultTbl .= "<th style = 'text-align:center'> Eesnimi </th>";
 			$resultTbl .= "<th style = 'text-align:center'> Perenimi </th>";
