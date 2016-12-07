@@ -47,16 +47,7 @@
 	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
-<?php require("../partials/header.php"); ?>
-
-<nav class="navbar navbar-default">
-	<ul class="nav navbar-nav navbar-right">
-		<li role="presentation"><a href="signup.php">Lisa kodugrupp</a></li>
-		<li role="presentation"><a href="#tere">Lisa kursus</a></li>
-		<li role="presentation"><a href="#">Lisa tööharu</a></li>
-		<li role="presentation"><a href="?logout=1">Logi välja</a></li>
-	</ul>
-</nav>
+<?php require("../partials/loggedInHeader.php"); ?>
 
 <form>
 	Otsing:	
@@ -86,6 +77,9 @@
 			$resultToTbl = $People->sortResults("email", "Email", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
+			$resultToTbl = $People->sortResults("phonenumber", "Telefoninumber", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
 			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
@@ -101,6 +95,7 @@
 			$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
+			$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";

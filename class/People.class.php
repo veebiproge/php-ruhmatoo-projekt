@@ -27,18 +27,19 @@ class People {
 		
 		$results = array();
 		$stmt = $this->connection->prepare("
-			SELECT firstname, lastname, email, date_of_birth, saved, baptised
+			SELECT firstname, lastname, email, phonenumber, date_of_birth, saved, baptised
 			FROM people WHERE $searchOption LIKE ? ORDER BY $sort $order
 		");
 		$searchValue = '%'.$searchValue.'%';
 		$stmt->bind_param("s", $searchValue);
-		$stmt->bind_result($fname, $lname, $email, $dob, $saved, $baptised);
+		$stmt->bind_result($fname, $lname, $email, $phonenumber, $dob, $saved, $baptised);
 		$stmt->execute();
 		while ($stmt->fetch()) {
 			$result = new Stdclass();
 			$result->fname = $fname;
 			$result->lname = $lname;
 			$result->email = $email;
+			$result->phonenumber = $phonenumber;
 			$result->dob = $dob;
 			$result->saved = $saved;
 			$result->baptised = $baptised;

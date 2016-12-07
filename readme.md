@@ -65,24 +65,24 @@ Extras:
 		email UNIQ
 		firstname VARCHAR(50)
 		lastname VARCHAR(50)
-		phonenumber INT ----------------------------- TO-DO
+		phonenumber INT 
 		date_of_birth DATE
 		saved DATE
 		baptised DATE
 		aprroved INT (0- ei, 1 - ja 2 - kustutatud/arhiveeritud)
-		rights -------------------------- TO-DO
+		rights INT 
 	smallgroups:
 		id INT AUTO Primary
 		name VARCHAR(50)
 		address VARCHAR(50)
 		leader INT (viitab inimeste tabelis ID'le)
 	gifts/line_of_work/courses:
+		gift/line_of_work/course VARCHAR(50) Primary
+	gifts/line_of_work/courses for people:
 		id INT AUTO Primary
 		person INT (viitab inimeste tabelis ID'le)
 		gift/line_of_work/course VARCHAR(50)
 		
-	
-
 
 	[Logid
 		Tabel teha:
