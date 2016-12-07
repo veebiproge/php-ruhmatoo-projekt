@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 	
 	require("../functions.php");
 	
@@ -474,4 +474,6 @@
 	</div>
 	
 <?php require("../partials/footer.php"); ?>
+
+
 

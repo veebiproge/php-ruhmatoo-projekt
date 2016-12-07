@@ -49,7 +49,14 @@
 ?>
 <?php require("../partials/header.php"); ?>
 
-<a href="?logout=1">Logi välja</a><br><br>
+<nav class="navbar navbar-default">
+	<ul class="nav navbar-nav navbar-right">
+		<li role="presentation"><a href="signup.php">Lisa kodugrupp</a></li>
+		<li role="presentation"><a href="#tere">Lisa kursus</a></li>
+		<li role="presentation"><a href="#">Lisa tööharu</a></li>
+		<li role="presentation"><a href="?logout=1">Logi välja</a></li>
+	</ul>
+</nav>
 
 <form>
 	Otsing:	

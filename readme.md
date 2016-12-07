@@ -37,7 +37,7 @@
 		Olemasoleva infot vaatamine/muutmine -----------------> Rando
 			Info kuvamine
 			Otsingud 
-				Nime järgi
+				Nime järgi - DONE
 				Andide järgi
 				Tööharude järgi
 				Kodugruppide järgi
@@ -65,10 +65,12 @@ Extras:
 		email UNIQ
 		firstname VARCHAR(50)
 		lastname VARCHAR(50)
+		phonenumber INT ----------------------------- TO-DO
 		date_of_birth DATE
 		saved DATE
 		baptised DATE
 		aprroved INT (0- ei, 1 - ja 2 - kustutatud/arhiveeritud)
+		rights -------------------------- TO-DO
 	smallgroups:
 		id INT AUTO Primary
 		name VARCHAR(50)
@@ -100,46 +102,3 @@ Extras:
 			millal DATETIME
 		Funktsioon sisestamiseks]
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-/*
-AmazonCheap
-Näidata, millise riigi amazoni saidil on kaup kõige odavam
-Sihtrühm:
-	Vanus: 20-55
-	Sugu: Mehed, Naised
-	Sots./Maj. staatus: palk->500+ Haridus->Kesk või parem
-	Muu: Arvuti kodus olemas, interneti makse võimalus
-	
-Lehed:
-	1) Valib riigi, valuuta, sisestab otsingu
-	2) Otsingu tulemused, järjestatud hinna järgi
-		Võimalus lisada lemmikutesse, eeldab kasutaja tegemist.
-		
-		
-Liikmed:
-	Oskar Nikopensius
-	Rando Tomingas
-	*/
