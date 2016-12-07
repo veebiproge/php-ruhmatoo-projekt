@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+	
+?>
 <html>
 <head>
 	<title>Pealkiri</title>

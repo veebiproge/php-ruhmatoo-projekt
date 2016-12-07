@@ -2,8 +2,8 @@
 	
 	require("../functions.php");
 	
-	require("../class/Data.class.php");
-	$Data = new Data($link);
+	require("../class/People.class.php");
+	$People = new People($link);
 	
 	require("../class/Helper.class.php");
 	$Helper = new Helper();
@@ -16,7 +16,6 @@
 		exit();
 	}
 	
-	
 	//If logout is in the address bar, then log out
 	if (isset($_GET["logout"])) {
 		
@@ -25,19 +24,32 @@
 		exit();
 	}
 	
-	if (isset($_GET["searchGo"])) {
-		$results = $Data->search($_GET["search"], $_GET["searchBy"]);
+	if (isset($_GET["search"])) {
+		$search = $Helper->cleanInput($_GET["search"]);
 	} else {
-		$results = $Data->getAllPpl();
+		$search = "";
 	}
+	
+	if(isset($_GET["searchBy"])) {
+		$searchBy = $Helper->cleanInput($_GET["searchBy"]);
+	} else {
+		$searchBy = "id";
+	}
+	
+	if (isset($_GET["sort"]) && isset($_GET["order"])) {
+		$sort = $Helper->cleanInput($_GET["sort"]);
+		$order = $Helper->cleanInput($_GET["order"]);
+	} else {
+		$sort = "id";
+		$order = "ASC";
+	}
+	
+	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
 <?php require("../partials/header.php"); ?>
 
-
 <a href="?logout=1">Logi välja</a><br><br>
-
-
 
 <form>
 	Otsing:	
@@ -50,18 +62,31 @@
 		<option value = "saved"> Päästetud </option>
 		<option value = "baptised"> Ristitud </option>
 	</select>
-	<input type = "submit" name = "searchGo" value = "Otsi"><br><br>
+	<input type = "submit" value = "Otsi"><br><br>
 </form>
 
 <?php
+
 	$resultTbl = "<table class = 'table'>";
 		$resultTbl .= "<tr border='2'>";
-			$resultTbl .= "<th style = 'text-align:center'> Eesnimi </th>";
-			$resultTbl .= "<th style = 'text-align:center'> Perenimi </th>";
-			$resultTbl .= "<th style = 'text-align:center'> Email </th>";
-			$resultTbl .= "<th style = 'text-align:center'> Sünnikuupäev </th>";
-			$resultTbl .= "<th style = 'text-align:center'> Päästetud </th>";
-			$resultTbl .= "<th style = 'text-align:center'> Ristitud </th>";
+		
+			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("lastname", "Perenimi", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("email", "Email", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("saved", "Päästetud", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("baptised", "Ristitud", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
 		$resultTbl .= "</tr>";
 		
 		foreach($results as $r) {
