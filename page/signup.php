@@ -29,6 +29,7 @@
 	$firstnameError = "";
 	$lastname = "";
 	$lastnameError = "";
+	$phoneNumber = "";
 	$dateOfBirth = "";
 	$dateOfBirthError = "";
 	$saved = "";
@@ -129,6 +130,13 @@
 		
 	} 
 	
+	if( isset( $_POST["phonenumber"] ) ){
+		
+		$phoneNumber = $_POST["phonenumber"];
+			
+		
+	} 
+	
 	
 	if( isset( $_POST["dateOfBirth1"] ) ){
 		
@@ -160,6 +168,8 @@
 		
 		
 	} 
+	
+	
 	
 	if( isset( $_POST["baptised3"] ) ){
 		
@@ -213,6 +223,7 @@
 		$signupEmail = $Helper->cleanInput($signupEmail);
 		$firstname = $Helper->cleanInput($firstname);
 		$lastname = $Helper->cleanInput($lastname);
+		$phoneNumber = $Helper->cleanInput($phoneNumber);
 		$dateOfBirth = $Helper->cleanInput($dateOfBirth);
 		$saved = $Helper->cleanInput($saved);
 		$baptised = $Helper->cleanInput($baptised);
@@ -220,7 +231,7 @@
 		
 		
 		
-		$User->signUp($signupUserName, $Helper->cleanInput($password), $signupEmail, $firstname, $lastname, $dateOfBirth, $saved, $baptised);
+		$User->signUp($signupEmail, $Helper->cleanInput($password), $signupUserName, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised);
 		
 		
 		
@@ -257,6 +268,9 @@
 					<br><br>
 					
 					<input class="form-control" placeholder="Perenimi" name="lastname" type="text" value="<?=$lastname;?>"> <?=$lastnameError;?>
+					<br><br>
+					
+					<input class="form-control" placeholder="Telefon" name="phonenumber" type="text" value="<?=$phoneNumber;?>">
 					<br><br>
 					
 					<label for="dateOfBirth1">Sünnikuupäev</label><?php echo $dateOfBirthError;?>

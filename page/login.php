@@ -21,6 +21,8 @@
 	
 	
 	$error ="";
+	
+	
 	if ( isset($_POST["loginUsername"]) && 
 		isset($_POST["loginPassword"]) && 
 		!empty($_POST["loginUsername"]) && 
