@@ -182,14 +182,12 @@
 	// ühtegi errorit
 	
 	if ( isset($_POST["signupEmail"]) && 
-		 isset($_POST["signupPassword"]) &&
-		 isset( $_POST["signupUserName"]) && 
+		 isset($_POST["signupPassword"]) && 
 		 isset( $_POST["firstname"]) &&
 		 isset( $_POST["lastname"]) &&
 		 isset( $_POST["dateOfBirth3"]) &&
 		 
 		 $signupEmailError == "" && 
-		 $signupUserNameError == "" && 
 		 $firstnameError == "" && 
 		 $lastnameError == "" && 
 		 $dateOfBirthError == "" && 
@@ -245,15 +243,14 @@
 				<h2>Loo kasutaja</h2>
 				<form method="POST">
 					
-					
 					<br><br>
-					<input class="form-control" placeholder="Kasutajanimi" name="signupUserName" type="text" value="<?=$signupUserName;?>"> <?=$signupUserNameError;?>
+					<input class="form-control" placeholder="E-post" name="signupEmail" type="text" value="<?=$signupEmail;?>"> <?=$signupEmailError;?>
 					<br><br>
 					
 					<input class="form-control" type="password" name="signupPassword" placeholder="Parool"> <?php echo $signupPasswordError; ?>
 					<br><br>
 					
-					<input class="form-control" placeholder="E-post" name="signupEmail" type="text" value="<?=$signupEmail;?>"> <?=$signupEmailError;?>
+					<input class="form-control" placeholder="Kasutajanimi" name="signupUserName" type="text" value="<?=$signupUserName;?>">
 					<br><br>
 					
 					<input class="form-control" placeholder="Eesnimi" name="firstname" type="text" value="<?=$firstname;?>"> <?=$firstnameError;?>

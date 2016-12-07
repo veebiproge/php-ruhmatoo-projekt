@@ -54,7 +54,7 @@
 					<br>
 					
 					<div class="form-group">
-						<input class="form-control" name="loginUsername" placeholder="Kasutajanimi" type="text">
+						<input class="form-control" name="loginUsername" placeholder="E-mail / Kasutajanimi" type="text">
 					</div>
 					<br>
 					
