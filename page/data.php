@@ -80,6 +80,8 @@
 			$resultToTbl = $People->sortResults("phonenumber", "Telefoninumber", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
+			$resultTbl .= "<th style = 'text-align:center'> Tööharu </th>";
+			
 			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
@@ -96,6 +98,7 @@
 			$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
+			$resultTbl .= "<td style = 'text-align:center'>".$Helper->arrayToString($r->line_of_work)."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
