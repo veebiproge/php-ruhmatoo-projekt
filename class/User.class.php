@@ -71,14 +71,14 @@ class User {
 	}
 	
 	
-	function signUp ($username, $password, $email, $firstname, $lastname, $dateOfBirth, $saved, $baptised) {
+	function signUp ($email, $password, $username, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised) {
 		
 
-		$stmt = $this->connection->prepare("INSERT INTO people (username, password, email, firstname, lastname, date_of_birth, saved, baptised) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+		$stmt = $this->connection->prepare("INSERT INTO people (email, password, username, firstname, lastname, phonenumber, date_of_birth, saved, baptised) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	
 		echo $this->connection->error;
 		
-		$stmt->bind_param("ssssssss", $username, $password, $email, $firstname, $lastname, $dateOfBirth, $saved, $baptised);
+		$stmt->bind_param("sssssisss", $email, $password, $username, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised);
 		
 		if($stmt->execute()) {
 			echo "salvestamine õnnestus";
