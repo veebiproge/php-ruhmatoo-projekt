@@ -5,7 +5,7 @@
 	require_once("../class/Data.class.php");
 	$Data = new Data($link);
 	
-	if (!isset($_GET['id'])) {
+	if (!isset($_GET["id"])) {
 		header("Location: data.php");
 		exit();
 	}

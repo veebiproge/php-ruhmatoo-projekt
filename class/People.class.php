@@ -72,6 +72,65 @@ class People {
 		
 	}
 	
+	function getPerson ($index) {
+		
+		$results = array();
+		$stmt = $this->connection->prepare("
+			SELECT id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people WHERE id = $index
+		");
+		$stmt->bind_result($id, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised);
+		$stmt->execute();
+		while ($stmt->fetch()) {
+			$result = new Stdclass();
+			$result->id = $id;
+			$result->fname = $fname;
+			$result->lname = $lname;
+			$result->email = $email;
+			$result->phonenumber = $phonenumber;
+			$result->dob = $dob;
+			$result->saved = $saved;
+			$result->baptised = $baptised;
+			$result->line_of_work = array();
+			$result->gift = array();
+			$result->course = array();
+			$result->smallgroup = array();
+			array_push($results, $result);
+		}
+		$stmt->close();
+		
+		$stmt = $this->connection->prepare("SELECT line_of_work.line_of_work FROM l_o_wOnPpl JOIN line_of_work ON l_o_wOnPpl.line_of_work=line_of_work.id WHERE l_o_wOnPpl.person = $index");
+		$stmt->bind_result($line_of_work);
+		$stmt->execute();
+		while($stmt->fetch()) {
+			array_push($result->line_of_work, $line_of_work);
+		}
+		
+		$stmt = $this->connection->prepare("SELECT gifts.gift FROM giftsOnPpl JOIN gifts ON giftsOnPpl.gift=gifts.id WHERE giftsOnPpl.person = $index");
+		$stmt->bind_result($gift);
+		$stmt->execute();
+		while($stmt->fetch()) {
+			array_push($result->gift, $gift);
+		}
+		
+		$stmt = $this->connection->prepare("SELECT courses.course FROM pplInCourses JOIN courses ON pplInCourses.course=courses.id WHERE pplInCourses.person = $index");
+		$stmt->bind_result($course);
+		$stmt->execute();
+		while($stmt->fetch()) {
+			array_push($result->course, $course);
+		}
+		
+		$stmt = $this->connection->prepare("SELECT smallgroups.name FROM pplInSmallgroups JOIN smallgroups ON smallgroups.id=pplInSmallgroups.smallgroup WHERE pplInSmallgroups.person = $index");
+		$stmt->bind_result($smallgroup);
+		$stmt->execute();
+		while($stmt->fetch()) {
+			array_push($result->smallgroup, $smallgroup);
+		}
+		
+		return $results;
+		
+		
+	}
+	
 	function sortResults ($sort, $tableHeader, $search, $searchBy) {
 		$itemOrder = "ASC";
 		$itemArrow = "";

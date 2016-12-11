@@ -21,7 +21,7 @@ class User {
 		$error = "";
 
 		$stmt = $this->connection->prepare("
-		SELECT id, username, password
+		SELECT id, username, password, rights
 		FROM people
 		WHERE username = ?");
 	
@@ -31,7 +31,7 @@ class User {
 		$stmt->bind_param("s", $username);
 		
 		//määran väärtused muutujatesse
-		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb);
+		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb, $rights);
 		$stmt->execute();
 		
 		//andmed tulid andmebaasist või mitte
@@ -49,6 +49,7 @@ class User {
 				// teistelt lehtedelt
 				$_SESSION["userId"] = $id;
 				$_SESSION["userUsername"] = $usernameFromDb;
+				$_SESSION["rights"] = $rights;
 				
 				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
