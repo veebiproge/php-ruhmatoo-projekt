@@ -10,7 +10,7 @@ class Data {
 	function getFromTableOfTwo($table) {
 		
 		$results = array();
-		$allowedTables = ["smallgroups", "course", "line_of_work"];
+		$allowedTables = ["course", "line_of_work"];
 		
 		if (!in_array($table, $allowedTables)) {
 			$result = new Stdclass();
@@ -37,9 +37,54 @@ class Data {
 		
 	}
 	
-	function save ($table, $value) {
+	function getPplInSmallgroup($id) {
 		
-		$allowedTables = ["course", "line_of_work", "smallgroups"];
+		$results = array();
+		$stmt = $this->connection->prepare("
+			SELECT firstname, lastname FROM (SELECT id, smallgroup, person FROM `pplInSmallgroups` WHERE smallgroup = $id) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.person=t2.id
+		");
+		$stmt->bind_result($firstname, $lastname);
+		$stmt->execute();
+		while ($stmt->fetch()) {
+			$result = new Stdclass();
+			$result->fname = $firstname;
+			$result->lname = $lastname;
+			array_push($results, $result);
+		}
+		
+		return $results;
+		
+	}
+	
+	function getSmallgroups($index) {
+		
+		$results = array();
+		$index = "%".$index."%";
+		
+		$stmt = $this->connection->prepare("
+			SELECT t1.id, name, address, firstname, t2.id FROM (SELECT * FROM smallgroups WHERE id LIKE ?) AS t1 JOIN (SELECT id, firstname FROM people) AS t2 ON t1.leader=t2.id
+		");
+		$stmt->bind_param("s", $index);
+		$stmt->bind_result($id, $name, $address, $leader, $leaderId);
+		$stmt->execute();
+		
+		while ($stmt->fetch()) {
+			$result = new Stdclass();
+			$result->id = $id;
+			$result->name = $name;
+			$result->address = $address;
+			$result->leader = $leader;
+			$result->leaderId = $leaderId;
+			array_push($results, $result);
+		}
+		
+		return $results;
+		
+	}
+	
+	function saveToTableOfTwo($table, $value) {
+		
+		$allowedTables = ["course", "line_of_work"];
 		
 		if (!in_array($table, $allowedTables)) {
 			return;
@@ -48,12 +93,14 @@ class Data {
 		$stmt = $this->connection->prepare("INSERT INTO $table VALUES (DEFAULT, ?)");
 		$stmt->bind_param("s", $value);
 		$stmt->execute();
-		/*
-		if ($stmt->execute()) {
-			echo "Salvestamine õnnestus";
-		} else {
-			echo "Viga";
-		}*/
+		return;
+	}
+	
+	function saveSmallgroup($name, $address, $leader) {
+		
+		$stmt = $this->connection->prepare("INSERT INTO smallgroups VALUES (DEFAULT, ?, ?, ?)");
+		$stmt->bind_param("ssi", $name, $address, $leader);
+		$stmt->execute();
 		return;
 	}
 	

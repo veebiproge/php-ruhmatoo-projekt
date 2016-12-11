@@ -1,11 +1,11 @@
 <?php
 	
-	require("../functions.php");
+	require_once("../functions.php");
 	
-	require("../class/People.class.php");
+	require_once("../class/People.class.php");
 	$People = new People($link);
 	
-	require("../class/Helper.class.php");
+	require_once("../class/Helper.class.php");
 	$Helper = new Helper();
 	
 	//If no user ID
@@ -56,6 +56,8 @@
 		<option value = "firstname"> Eesnimi </option>
 		<option value = "lastname"> Perenimi </option>
 		<option value = "email"> Email </option>
+		<option value = "phonenumber"> Telefoninumber </option>
+		<option value = "line_of_work"> Tööharu </option>
 		<option value = "date_of_birth"> Sünnikuupäev </option>
 		<option value = "saved"> Päästetud </option>
 		<option value = "baptised"> Ristitud </option>

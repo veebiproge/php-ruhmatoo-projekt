@@ -8,8 +8,8 @@ class People {
 	}
 	
 	function getPpl($searchValue, $searchOption, $sort, $order) {
-		$allowedSearch = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised"];
-		$allowedSort = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised"];
+		$allowedSearch = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber"];
+		$allowedSort = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber"];
 		
 		if(!in_array($searchOption, $allowedSearch)) {
 			$searchOption = "id";
