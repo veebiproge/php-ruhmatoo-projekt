@@ -234,7 +234,6 @@
 		$User->signUp($signupEmail, $Helper->cleanInput($password), $signupUserName, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised);
 		
 		
-		
 	
 	}
 	

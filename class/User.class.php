@@ -82,29 +82,13 @@ class User {
 		
 		if($stmt->execute()) {
 			echo "salvestamine õnnestus";
-			header("Location: login.php");
-			exit();
+			//header("Location: login.php");
+			//exit();
 		} else {
 		 	echo "ERROR ".$stmt->error;
 		}
 		
 		$stmt->close();		
-	}
-	
-	function addEmpties($email) {
-		
-		$stmt = $this->connection->prepare("SELECT id, username FROM people WHERE email = ?");
-		echo $this->connection->error;
-		$stmt->bind_param("s", $email);
-		$stmt->execute();
-		$indexOfPerson = $stmt->insert_id;
-		$stmt->close();
-		
-		$stmt = $this->connection->prepare("INSERT INTO l_o_wOnPpl VALUES (DEFAULT, $indexOfPerson, DEFAULT)");
-		echo $this->connection->error;
-		$stmt->execute();
-		$stmt->close();
-		
 	}
 	
 	

@@ -25,6 +25,7 @@
 		<li role="presentation"><a href="data.php">Administreerimine</a></li>
 		<li role="presentation"><a href="smallgroups.php">Kodugrupid</a></li>
 		<li role="presentation"><a href="courses.php">Kursused</a></li>
+		<li role="presentation"><a href="gifts.php">Oskused</a></li>
 		<li role="presentation"><a href="lines_of_work.php">Tööharud</a></li>
 		<li role="presentation"><a href="?logout=1">Logi välja</a></li>
 		<li role="presentation"><a href="?logout=1"></a></li>

@@ -85,6 +85,15 @@
 			$resultToTbl = $People->sortResults("line_of_work", "Tööharu", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
+			$resultToTbl = $People->sortResults("gift", "Oskused", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("course", "Kursused", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
+			$resultToTbl = $People->sortResults("smallgroup", "Väikegrupid", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
+			
 			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
@@ -102,6 +111,9 @@
 			$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->line_of_work."</td>";
+			$resultTbl .= "<td style = 'text-align:center'>".$r->gift."</td>";
+			$resultTbl .= "<td style = 'text-align:center'>".$r->course."</td>";
+			$resultTbl .= "<td style = 'text-align:center'>".$r->smallgroup."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
