@@ -19,18 +19,34 @@
 		exit();
 	}
 	
+	if (isset($_POST["line_of_work"]) && !empty($_POST["line_of_work"])) {
+		$Data->save("line_of_work", $_POST["line_of_work"]);
+	}
+	
 	$lines_of_work = $Data->getFromTableOfTwo("line_of_work");
 	
 ?>
 
 <?php require("../partials/loggedInHeader.php"); ?>
 
-<label>Tööharud</label><br>
+
+<br><label>Lisa uus</label><br>
+<form method = "POST">
+	<input type = "text" name = "line_of_work">
+	<input type = "submit" value = "Salvesta">
+</form>
+
+<br><label>Tööharud</label><br>
 <?php
+	
+	$counter = 0;
 	
 	$listHtml = "<ul>";
 	foreach($lines_of_work as $l) {
-		$listHtml .= "<li>".$l->data."</li>";
+		if ($counter > 0) {
+			$listHtml .= "<li>".$l->data."</li>";
+		}
+		$counter += 1;
 	}
 	$listHtml .= "<ul>";
 	
