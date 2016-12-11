@@ -45,12 +45,12 @@
 	
 	$listHtml = "<ul>";
 	foreach($smallgroups as $sg) {
-		
-		$listHtml .= "<li>".$sg->name." <a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a>"."</li>";
-		
+		if ($sg->id != 0) {
+			$listHtml .= "<li>".$sg->name." <a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a>"."</li>";
+		}
 	}
 	$listHtml .= "</ul>";
-	
+
 	echo $listHtml;
 	
 ?>

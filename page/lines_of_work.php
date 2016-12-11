@@ -10,7 +10,6 @@
 	
 	if (!isset($_SESSION["userId"])){
 		
-		//Redirect to login page
 		header("Location: login.php");
 		exit();
 	}
@@ -36,14 +35,11 @@
 <br><label>Tööharud</label><br>
 <?php
 	
-	$counter = 0;
-	
 	$listHtml = "<ul>";
 	foreach($lines_of_work as $l) {
-		if ($counter > 0) {
+		if ($l->id != 0) {
 			$listHtml .= "<li>".$l->data."</li>";
 		}
-		$counter += 1;
 	}
 	$listHtml .= "</ul>";
 	

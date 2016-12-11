@@ -10,7 +10,7 @@ class Data {
 	function getFromTableOfTwo($table) {
 		
 		$results = array();
-		$allowedTables = ["course", "line_of_work"];
+		$allowedTables = ["courses", "line_of_work"];
 		
 		if (!in_array($table, $allowedTables)) {
 			$result = new Stdclass();
@@ -84,7 +84,7 @@ class Data {
 	
 	function saveToTableOfTwo($table, $value) {
 		
-		$allowedTables = ["course", "line_of_work"];
+		$allowedTables = ["courses", "line_of_work"];
 		
 		if (!in_array($table, $allowedTables)) {
 			return;
