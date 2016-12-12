@@ -104,5 +104,12 @@ class Data {
 		return;
 	}
 	
+	function updateSmallgroup($index, $leader, $address) {
+		
+		$stmt = $this->connection->prepare("UPDATE smallgroups SET leader = ?, address = ? WHERE id = ?");
+		$stmt->bind_param("isi", $leader, $address, $index);
+		$stmt->execute();
+	}
+	
 }
 ?>

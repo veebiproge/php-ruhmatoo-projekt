@@ -57,10 +57,12 @@
 	if (count($person[0]->smallgroup) < 1) {
 		$person[0]->smallgroup[0] = "";
 	}
+	
 	$numberOfLOW = count($person[0]->line_of_work);
 	$numberOfGifts = count($person[0]->gift);
 	$numberOfCourses = count($person[0]->course);
 	$numberOfSmallgroups = count($person[0]->smallgroup);
+	$numberOfSmallgroupsToLead = count($person[0]->smallgroupToLead);
 	
 	$dataHtml = "<style>th, td {padding: 15px;}</style>";
 	$dataHtml .= "<table border = '1'><tr><th>Eesnimi: </th>";
@@ -92,12 +94,18 @@
 		if ($g != $person[0]->course[0]) {$dataHtml .= "<tr>";}
 		$dataHtml .= "<td>".$g."</td></tr>";
 	}
-	$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">Väikegruppid:</th>";
+	$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">Väikegruppid(osaleja):</th>";
 	foreach($person[0]->smallgroup as $s) {
 		if ($s != $person[0]->smallgroup[0]) {$dataHtml .= "<tr>";}
 		$dataHtml .= "<td>".$s."</td></tr>";
 	}
-	
+	if ($numberOfSmallgroupsToLead > 0) {
+		$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroupsToLead.">Väikegruppid(juht):</th>";
+		foreach($person[0]->smallgroupToLead as $sl) {
+			if ($sl != $person[0]->smallgroupToLead[0]) {$dataHtml .= "<tr>";}
+			$dataHtml .= "<td>".$sl."</td></tr>";
+		}
+	}
 	$dataHtml .= "</table>";
 	
 	echo $dataHtml

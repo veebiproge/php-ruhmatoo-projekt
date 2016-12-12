@@ -27,7 +27,7 @@ class People {
 		
 		$results = array();
 		$stmt = $this->connection->prepare("
-			SELECT t1.id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised, line_of_work, gift, course, smallgroup  FROM
+			SELECT t1.id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised, line_of_work, gift, course, smallgroup, sgName  FROM
 			(SELECT id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people) AS t1
 			LEFT JOIN
 			(SELECT person, GROUP_CONCAT(line_of_work.line_of_work) AS line_of_work FROM l_o_wOnPpl 
@@ -45,11 +45,13 @@ class People {
 			(SELECT person, GROUP_CONCAT(smallgroups.name) AS smallgroup FROM pplInSmallgroups 
 			JOIN 
 			smallgroups ON pplInSmallgroups.smallgroup=smallgroups.id GROUP BY person) AS t5 ON t1.id=t5.person
+			LEFT JOIN
+			(SELECT GROUP_CONCAT(name) AS sgName, leader FROM smallgroups GROUP BY leader) AS t6 ON t1.id=t6.leader
 			WHERE $searchOption LIKE ? ORDER BY $sort $order
 		");
 		$searchValue = '%'.$searchValue.'%';
 		$stmt->bind_param("s", $searchValue);
-		$stmt->bind_result($id, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised, $line_of_work, $gift, $course, $smallgroup);
+		$stmt->bind_result($id, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised, $line_of_work, $gift, $course, $smallgroup, $sgLeader);
 		$stmt->execute();
 		while ($stmt->fetch()) {
 			$result = new Stdclass();
@@ -65,6 +67,7 @@ class People {
 			$result->gift = $gift;
 			$result->course = $course;
 			$result->smallgroup = $smallgroup;
+			$result->sgLeader = $sgLeader;
 			array_push($results, $result);
 		}
 		$stmt->close();
@@ -94,6 +97,7 @@ class People {
 			$result->gift = array();
 			$result->course = array();
 			$result->smallgroup = array();
+			$result->smallgroupToLead = array();
 			array_push($results, $result);
 		}
 		$stmt->close();
@@ -104,6 +108,7 @@ class People {
 		while($stmt->fetch()) {
 			array_push($result->line_of_work, $line_of_work);
 		}
+		$stmt->close();
 		
 		$stmt = $this->connection->prepare("SELECT gifts.gift FROM giftsOnPpl JOIN gifts ON giftsOnPpl.gift=gifts.id WHERE giftsOnPpl.person = $index");
 		$stmt->bind_result($gift);
@@ -111,6 +116,7 @@ class People {
 		while($stmt->fetch()) {
 			array_push($result->gift, $gift);
 		}
+		$stmt->close();
 		
 		$stmt = $this->connection->prepare("SELECT courses.course FROM pplInCourses JOIN courses ON pplInCourses.course=courses.id WHERE pplInCourses.person = $index");
 		$stmt->bind_result($course);
@@ -118,6 +124,7 @@ class People {
 		while($stmt->fetch()) {
 			array_push($result->course, $course);
 		}
+		$stmt->close();
 		
 		$stmt = $this->connection->prepare("SELECT smallgroups.name FROM pplInSmallgroups JOIN smallgroups ON smallgroups.id=pplInSmallgroups.smallgroup WHERE pplInSmallgroups.person = $index");
 		$stmt->bind_result($smallgroup);
@@ -125,6 +132,15 @@ class People {
 		while($stmt->fetch()) {
 			array_push($result->smallgroup, $smallgroup);
 		}
+		$stmt->close();
+		
+		$stmt = $this->connection->prepare("SELECT smallgroups.name FROM smallgroups WHERE leader = $index");
+		$stmt->bind_result($leader);
+		$stmt->execute();
+		while($stmt->fetch()) {
+			array_push($result->smallgroupToLead, $leader);
+		}
+		$stmt->close();
 		
 		return $results;
 		

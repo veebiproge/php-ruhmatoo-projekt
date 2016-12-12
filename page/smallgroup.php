@@ -2,16 +2,31 @@
 	
 	require_once("../functions.php");
 	
+	require_once("../class/People.class.php");
+	$People = new People($link);
+	
 	require_once("../class/Data.class.php");
 	$Data = new Data($link);
+	
+	require_once("../class/Helper.class.php");
+	$Helper = new Helper();
 	
 	if (!isset($_GET["id"])) {
 		header("Location: data.php");
 		exit();
 	}
 	
-	$smallgroup = $Data->getSmallgroups($_GET['id']);
-	$pplInSmallgroup = $Data->getPplInSmallgroup($_GET['id']);
+	if (isset($_POST["save"])) {
+		$leader = $Helper->cleanInput($_POST["leader"]);
+		$address = $Helper->cleanInput($_POST["address"]);
+		$index = $Helper->cleanInput($_GET["id"]);
+		$Data->updateSmallgroup($index, $leader, $address);
+		header("Location: smallgroup.php?id=".$_GET["id"]."&save=success");
+	}
+	
+	$ppl = $People->getPpl("", "", "", "");
+	$pplInSmallgroup = $Data->getPplInSmallgroup($Helper->cleanInput($_GET["id"]));
+	$smallgroup = $Data->getSmallgroups($Helper->cleanInput($_GET["id"]));
 	
 ?>
 
@@ -19,24 +34,36 @@
 
 <?php
 	
-	$dataHtml = "<table>";
+	$numberOfMembers = count($pplInSmallgroup);
+	
+	$dataHtml = "<form method = 'POST'>";
+	$dataHtml .= "<style>th, td {padding: 15px;}</style>";
+	$dataHtml .= "<table border = '1'>";
 	$dataHtml .= "<tr>";
-	$dataHtml .= "<td> Juht: </td>";
-	$dataHtml .= "<td>".$smallgroup[0]->leader."</td>";
-	$dataHtml .= "</tr>";
-	$dataHtml .= "<tr>";
-	$dataHtml .= "<td> Aadress: </td>";
-	$dataHtml .= "<td>".$smallgroup[0]->address."</td>";
-	$dataHtml .= "</tr>";
-	$dataHtml .= "<tr>";
-	$dataHtml .= "<td>Liikmed:";
-	$dataHtml .= "<ul>";
-	foreach($pplInSmallgroup as $p) {
-		$dataHtml .= "<li>$p->fname $p->lname</li>";
+	$dataHtml .= "<th> Juht: </th>";
+	$dataHtml .= "<td><select name = 'leader'>";
+	foreach($ppl as $p) {
+		$dataHtml .= "<option value ='".$p->id."' ";
+		if ($p->id == $smallgroup[0]->leaderId) {
+			$dataHtml .= " selected ";
+		}
+		$dataHtml .= ">".$p->fname." ".$p->lname."</option>";
 	}
-	$dataHtml .= "</ul>";
+	$dataHtml .= "</select></td>";
 	$dataHtml .= "</tr>";
+	$dataHtml .= "<tr>";
+	$dataHtml .= "<th> Aadress: </th>";
+	$dataHtml .= "<td><input type = 'text' name = 'address' value = '".$smallgroup[0]->address."'></td>";
+	$dataHtml .= "</tr>";
+	$dataHtml .= "<tr>";
+	$dataHtml .= "<tr><th rowspan = ".$numberOfMembers.">Liikmed:</th>";
+	foreach($pplInSmallgroup as $m) {
+		if ($m != $pplInSmallgroup[0]) {$dataHtml .= "<tr>";}
+		$dataHtml .= "<td>".$m->fname." ".$m->lname."</td></tr>";
+	}
+	$dataHtml .= "<tr><th></th><td><input type = 'submit' name = 'save' value = 'Salvesta'></td></tr>";
 	$dataHtml .= "</table>";
+	$dataHtml .= "</form>";
 	
 	echo $dataHtml;
 	
