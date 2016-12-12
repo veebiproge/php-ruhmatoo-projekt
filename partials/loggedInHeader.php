@@ -23,7 +23,7 @@
 <nav class="navbar navbar-default">
 	<ul class="nav navbar-nav navbar-right">
 		<li role="presentation"><a href="profile.php?id=<?=$_SESSION["userId"]?>">Profiil</a></li>
-		<li role="presentation"><a href="data.php">Administreerimine</a></li>
+		<li role="presentation"><a href="data.php">Inimesed</a></li>
 		<li role="presentation"><a href="smallgroups.php">Kodugrupid</a></li>
 		<li role="presentation"><a href="courses.php">Kursused</a></li>
 		<li role="presentation"><a href="gifts.php">Oskused</a></li>

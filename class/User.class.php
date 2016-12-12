@@ -53,7 +53,7 @@ class User {
 				
 				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
-				header("Location: profile.php");
+				header("Location: profile.php?id=".$_SESSION["userId"]);
 				exit();
 				
 			}else {

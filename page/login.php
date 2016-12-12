@@ -12,8 +12,7 @@
 	// kui on juba sisse loginud siis suunan data lehele
 	if (isset($_SESSION["userId"])){
 		
-		//suunan sisselogimise lehele
-		header("Location: profile.php");
+		header("Location: profile.php?id=".$_SESSION["userId"]);
 		exit();
 		
 	}
