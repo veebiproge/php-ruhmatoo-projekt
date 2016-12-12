@@ -62,9 +62,12 @@
 	$numberOfCourses = count($person[0]->course);
 	$numberOfSmallgroups = count($person[0]->smallgroup);
 	
-	$dataHtml = "<label>".$person[0]->fname." ".$person[0]->lname."</label>";
-	$dataHtml .= "<style>th, td {padding: 15px;}</style>";
-	$dataHtml .= "<table border = '1'><tr><th>Email: </th>";
+	$dataHtml = "<style>th, td {padding: 15px;}</style>";
+	$dataHtml .= "<table border = '1'><tr><th>Eesnimi: </th>";
+	$dataHtml .= "<td>".$person[0]->fname."</td></tr>";
+	$dataHtml .= "<th>Perekonnanimi: </th>";
+	$dataHtml .= "<td>".$person[0]->lname."</td></tr>";
+	$dataHtml .= "<th>Email: </th>";
 	$dataHtml .= "<td>".$person[0]->email."</td></tr>";
 	$dataHtml .= "<tr><th>Telefon:</th>";
 	$dataHtml .= "<td>".$person[0]->phonenumber."</td></tr>";

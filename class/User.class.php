@@ -53,7 +53,7 @@ class User {
 				
 				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
 				
-				header("Location: data.php");
+				header("Location: profile.php");
 				exit();
 				
 			}else {
@@ -83,8 +83,8 @@ class User {
 		
 		if($stmt->execute()) {
 			echo "salvestamine õnnestus";
-			//header("Location: login.php");
-			//exit();
+			header("Location: login.php");
+			exit();
 		} else {
 		 	echo "ERROR ".$stmt->error;
 		}

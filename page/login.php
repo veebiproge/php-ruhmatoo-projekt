@@ -13,7 +13,7 @@
 	if (isset($_SESSION["userId"])){
 		
 		//suunan sisselogimise lehele
-		header("Location: data.php");
+		header("Location: profile.php");
 		exit();
 		
 	}
