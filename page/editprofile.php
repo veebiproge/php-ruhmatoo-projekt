@@ -66,7 +66,7 @@
 	
 	$dataHtml = "<style>th, td {padding: 15px;}</style>";
 	$dataHtml .= "<table border = '1'><tr><th>Eesnimi: </th>";
-	$dataHtml .= "<td>".$person[0]->fname."</td></tr>";
+	$dataHtml .= "<td><input type = 'text' value = '".$person[0]->fname."'></td></tr>";
 	$dataHtml .= "<th>Perekonnanimi: </th>";
 	$dataHtml .= "<td>".$person[0]->lname."</td></tr>";
 	$dataHtml .= "<th>Email: </th>";
@@ -106,7 +106,6 @@
 			$dataHtml .= "<td>".$sl."</td></tr>";
 		}
 	}
-	$dataHtml .= "<tr><th></th><td><a class='btn btn-default btn-sm' href = 'editprofile.php?id=".$Helper->cleanInput($_GET["id"])."'>Muuda</a></td></tr>";
 	$dataHtml .= "</table>";
 	
 	echo $dataHtml

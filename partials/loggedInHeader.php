@@ -19,7 +19,7 @@
 	
 </head>
 <body>
-<div class = "container">
+<div class = "container-fluid">
 <nav class="navbar navbar-default">
 	<ul class="nav navbar-nav navbar-right">
 		<li role="presentation"><a href="profile.php?id=<?=$_SESSION["userId"]?>">Profiil</a></li>

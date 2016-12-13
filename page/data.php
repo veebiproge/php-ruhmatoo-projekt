@@ -102,6 +102,11 @@
 			
 			$resultToTbl = $People->sortResults("baptised", "Ristitud", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
+			
+			if ($_SESSION["rights"] > 4) {
+				$resultTbl .= "<th></th>";
+			}
+			
 		$resultTbl .= "</tr>";
 		
 		foreach($results as $r) {
@@ -118,6 +123,9 @@
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
+			if ($_SESSION["rights"] > 4) {
+				$resultTbl .= "<td style = 'text-align:center' width = '100'> <a class='btn btn-default btn-sm' href = 'profile.php?id=".$r->id."'>Vaata</a> </td>";
+			}
 		$resultTbl .= "</tr>";
 		}
 		
