@@ -61,6 +61,9 @@
 		if ($m != $pplInSmallgroup[0]) {$dataHtml .= "<tr>";}
 		$dataHtml .= "<td>".$m->fname." ".$m->lname."</td></tr>";
 	}
+	if ($numberOfMembers == 0) {
+		$dataHtml .= "<td></td></tr>";
+	}
 	$dataHtml .= "<tr><th></th><td><input type = 'submit' name = 'save' value = 'Salvesta'></td></tr>";
 	$dataHtml .= "</table>";
 	$dataHtml .= "</form>";
