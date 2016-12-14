@@ -5,6 +5,9 @@
 	require_once("../class/People.class.php");
 	$People = new People($link);
 	
+	require_once("../class/Data.class.php");
+	$Data = new Data($link);
+	
 	require_once("../class/Helper.class.php");
 	$Helper = new Helper();
 	
@@ -41,6 +44,36 @@
 		$order = "ASC";
 	}
 	
+	$lines_of_work = $Data->getFromTableOfTwo("line_of_work");
+	$gifts = $Data->getFromTableOfTwo("gifts");
+	$courses = $Data->getFromTableOfTwo("courses");
+	$smallgroups = $Data->getSmallgroups("");
+	$results = $People->getPpl($search, $searchBy, $sort, $order);
+	
+	foreach($results as $r) {
+		if (isset($_POST['lowToJoin']) && isset($_POST["addLow".$r->id])) {
+			$Data->addAttribute("l_o_wOnPpl", $_POST['lowToJoin'], $r->id);
+		}
+	}
+	
+	foreach($results as $r) {
+		if (isset($_POST['gToJoin']) && isset($_POST["addG".$r->id])) {
+			$Data->addAttribute("giftsOnPpl", $_POST['gToJoin'], $r->id);
+		}
+	}
+	
+	foreach($results as $r) {
+		if (isset($_POST['cToJoin']) && isset($_POST["addC".$r->id])) {
+			$Data->addAttribute("pplInCourses", $_POST['cToJoin'], $r->id);
+		}
+	}
+	
+	foreach($results as $r) {
+		if (isset($_POST['sgToJoin']) && isset($_POST["addSg".$r->id])) {
+			$Data->addAttribute("pplInSmallgroups", $_POST['sgToJoin'], $r->id);
+		}
+	}
+	
 	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
@@ -64,7 +97,8 @@
 
 <?php
 
-	$resultTbl = "<table class = 'table'>";
+	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
+	$resultTbl .= "<table class = 'table'>";
 		$resultTbl .= "<tr border='2'>";
 		
 			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
@@ -115,10 +149,43 @@
 			$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->line_of_work."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->gift."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->course."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->smallgroup."</td>";
+			$resultTbl .= "<form method = 'POST'>";
+			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->line_of_work;
+			$resultTbl .= "<select name = 'lowToJoin'>";
+			foreach ($lines_of_work as $low) {
+				$resultTbl .= "<option value = '".$low->id."'>".$low->data."</option>";
+			}
+			$resultTbl .= "</select'>";
+			$resultTbl .= "<input type = 'submit' name = 'addLow".$r->id."' value = 'Lisa Tööharu'>";
+			$resultTbl .= "</td>";
+			
+			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->gift;
+			$resultTbl .= "<select name = 'gToJoin'>";
+			foreach ($gifts as $g) {
+				$resultTbl .= "<option value = '".$g->id."'>".$g->data."</option>";
+			}
+			$resultTbl .= "</select'>";
+			$resultTbl .= "<input type = 'submit' name = 'addG".$r->id."' value = 'Lisa Oskus'>";
+			$resultTbl .= "</td>";
+			
+			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->course;
+			$resultTbl .= "<select name = 'cToJoin'>";
+			foreach ($courses as $c) {
+				$resultTbl .= "<option value = '".$c->id."'>".$c->data."</option>";
+			}
+			$resultTbl .= "</select'>";
+			$resultTbl .= "<input type = 'submit' name = 'addC".$r->id."' value = 'Lisa kursusele'>";
+			$resultTbl .= "</td>";
+			
+			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->smallgroup;
+			$resultTbl .= "<select name = 'sgToJoin'>";
+			foreach ($smallgroups as $sg) {
+				$resultTbl .= "<option value = '".$sg->id."'>".$sg->name."</option>";
+			}
+			$resultTbl .= "</select'>";
+			$resultTbl .= "<input type = 'submit' name = 'addSg".$r->id."' value = 'Lisa Gruppi'>";
+			$resultTbl .= "</td>";
+			$resultTbl .= "</form>";
 			$resultTbl .= "<td style = 'text-align:center'>".$r->sgLeader."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
 			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";

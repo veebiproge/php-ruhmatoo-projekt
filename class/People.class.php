@@ -102,43 +102,58 @@ class People {
 		}
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT line_of_work.line_of_work FROM l_o_wOnPpl JOIN line_of_work ON l_o_wOnPpl.line_of_work=line_of_work.id WHERE l_o_wOnPpl.person = $index");
-		$stmt->bind_result($line_of_work);
+		$stmt = $this->connection->prepare("SELECT line_of_work.id, line_of_work.line_of_work FROM l_o_wOnPpl JOIN line_of_work ON l_o_wOnPpl.line_of_work=line_of_work.id WHERE l_o_wOnPpl.person = $index");
+		$stmt->bind_result($id, $name);
 		$stmt->execute();
 		while($stmt->fetch()) {
-			array_push($result->line_of_work, $line_of_work);
+			$att = new Stdclass();
+			$att->id = $id;
+			$att->name = $name;
+			array_push($result->line_of_work, $att);
 		}
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT gifts.gift FROM giftsOnPpl JOIN gifts ON giftsOnPpl.gift=gifts.id WHERE giftsOnPpl.person = $index");
-		$stmt->bind_result($gift);
+		$stmt = $this->connection->prepare("SELECT gifts.id, gifts.gift FROM giftsOnPpl JOIN gifts ON giftsOnPpl.gift=gifts.id WHERE giftsOnPpl.person = $index");
+		$stmt->bind_result($id, $name);
 		$stmt->execute();
 		while($stmt->fetch()) {
-			array_push($result->gift, $gift);
+			$att = new Stdclass();
+			$att->id = $id;
+			$att->name = $name;
+			array_push($result->gift, $att);
 		}
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT courses.course FROM pplInCourses JOIN courses ON pplInCourses.course=courses.id WHERE pplInCourses.person = $index");
-		$stmt->bind_result($course);
+		$stmt = $this->connection->prepare("SELECT courses.id, courses.course FROM pplInCourses JOIN courses ON pplInCourses.course=courses.id WHERE pplInCourses.person = $index");
+		$stmt->bind_result($id, $name);
 		$stmt->execute();
 		while($stmt->fetch()) {
-			array_push($result->course, $course);
+			$att = new Stdclass();
+			$att->id = $id;
+			$att->name = $name;
+			array_push($result->course, $att);
 		}
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT smallgroups.name FROM pplInSmallgroups JOIN smallgroups ON smallgroups.id=pplInSmallgroups.smallgroup WHERE pplInSmallgroups.person = $index");
-		$stmt->bind_result($smallgroup);
+		$stmt = $this->connection->prepare("SELECT smallgroups.id, smallgroups.name FROM pplInSmallgroups JOIN smallgroups ON smallgroups.id=pplInSmallgroups.smallgroup WHERE pplInSmallgroups.person = $index");
+		$stmt->bind_result($id, $name);
 		$stmt->execute();
 		while($stmt->fetch()) {
-			array_push($result->smallgroup, $smallgroup);
+			$att = new Stdclass();
+			$att->id = $id;
+			$att->name = $name;
+			array_push($result->smallgroup, $att);
 		}
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("SELECT smallgroups.name FROM smallgroups WHERE leader = $index");
-		$stmt->bind_result($leader);
+		$stmt = $this->connection->prepare("SELECT smallgroups.id, smallgroups.name FROM smallgroups WHERE leader = $index");
+		$stmt->bind_result($id, $name);
 		$stmt->execute();
 		while($stmt->fetch()) {
-			array_push($result->smallgroupToLead, $leader);
+			$att = new Stdclass();
+			$att->id = $id;
+			$att->name = $name;
+			array_push($result->smallgroupToLead, $att);
 		}
 		$stmt->close();
 		
@@ -162,6 +177,18 @@ class People {
 		</th>";
 		
 		return $resultTbl;
+	}
+	
+	function updatePerson($index, $field, $value) {
+		
+		$allowedField = ["firstname", "lastname", "email", "saved", "baptised", "phonenumber"];
+		if (!in_array($field, $allowedField)) return;
+		
+		$stmt = $this->connection->prepare("UPDATE people SET $field = ? WHERE id = ?");
+		$stmt->bind_param("si",  $value, $index);
+		$stmt->execute();
+		$stmt->close();
+		
 	}
 	
 }
