@@ -1,6 +1,6 @@
 <?php
 	
-	require_once("../functions.php");
+	require_once("../functions.php"); 
 	
 	require("../class/Data.class.php");
 	$Data = new Data($link);
@@ -126,9 +126,9 @@
 	$dataHtml .= "<td colspan = '2'><input type = 'text' name = 'email' value = '".$person[0]->email."'></td></tr>";
 	$dataHtml .= "<tr><th>Telefon:</th>";
 	$dataHtml .= "<td colspan = '2'><input type = 'text' name = 'phone' value = '".$person[0]->phonenumber."'></td></tr>";
-	$dataHtml .= "<tr><th>Sünnikuupäev:</th>";
+	$dataHtml .= "<tr><th>SÃ¼nnikuupÃ¤ev:</th>";
 	$dataHtml .= "<td colspan = '2'>".$person[0]->dob."</td></tr>";
-	$dataHtml .= "<tr><th>Päästetud:</th>";
+	$dataHtml .= "<tr><th>PÃ¤Ã¤stetud:</th>";
 	$dataHtml .= "<td colspan = '2'><select name = 'saved_y'>";
 	$dataHtml .= "<option value = '0'>0</option>";
 	for ($i=1900; $i<=2016; $i+=1) {
@@ -186,7 +186,7 @@
 		$dataHtml .= ">".$i."</option>";
 	}
 	$dataHtml .= "</select>";
-	$dataHtml .= "<tr><th rowspan = ".$numberOfLOW.">Tööharud:</th>";
+	$dataHtml .= "<tr><th rowspan = ".$numberOfLOW.">TÃ¶Ã¶harud:</th>";
 	foreach($person[0]->line_of_work as $l) {
 		if ($l != $person[0]->line_of_work[0]) {$dataHtml .= "<tr>";}
 		if (is_object($l)) {
@@ -216,7 +216,7 @@
 			$dataHtml .= "<td colspan = '2'>".$c."</td></tr>";
 		}
 	}
-	$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">Väikegruppid(osaleja):</th>";
+	$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">VÃ¤ikegruppid(osaleja):</th>";
 	foreach($person[0]->smallgroup as $s) {
 		if ($s != $person[0]->smallgroup[0]) {$dataHtml .= "<tr>";}
 		if (is_object($s)) {
@@ -227,7 +227,7 @@
 		}
 	}
 	if ($numberOfSmallgroupsToLead > 0) {
-		$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroupsToLead.">Väikegruppid(juht):</th>";
+		$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroupsToLead.">VÃ¤ikegruppid(juht):</th>";
 		foreach($person[0]->smallgroupToLead as $sl) {
 			if ($sl != $person[0]->smallgroupToLead[0]) {$dataHtml .= "<tr>";}
 			if (is_object($sl)) {
