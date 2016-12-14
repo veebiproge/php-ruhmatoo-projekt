@@ -32,7 +32,7 @@
 <?php require("../partials/loggedInHeader.php"); ?>
 
 
-<br><label>Tööharud</label><br>
+<br><label>TÃ¶Ã¶harud</label><br>
 <?php
 	
 	$listHtml = "<ul>";

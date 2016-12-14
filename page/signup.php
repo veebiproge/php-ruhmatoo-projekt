@@ -35,11 +35,11 @@
 	$saved = "";
 	$baptised ="";
 
-	// on üldse olemas selline muutja
+	// on Ã¼ldse olemas selline muutja
 	if( isset( $_POST["signupUserName"] ) ){
 		
 		//jah on olemas
-		//kas on tühi
+		//kas on tÃ¼hi
 		if( empty( $_POST["signupUserName"] ) ){
 			
 			$signupUserNameError = "See vÃ¤li on kohustuslik";
@@ -53,11 +53,11 @@
 		
 	} 
 	
-	// on üldse olemas selline muutja
+	// on Ã¼ldse olemas selline muutja
 	if( isset( $_POST["signupEmail"] ) ){
 		
 		//jah on olemas
-		//kas on tühi
+		//kas on tÃ¼hi
 		if( empty( $_POST["signupEmail"] ) ){
 			
 			$signupEmailError = "See vÃ¤li on kohustuslik";
@@ -80,10 +80,10 @@
 			
 		} else {
 			
-			// siia jõuan siis kui parool oli olemas - isset
-			// parool ei olnud tühi -empty
+			// siia jÃµuan siis kui parool oli olemas - isset
+			// parool ei olnud tÃ¼hi -empty
 			
-			// kas parooli pikkus on väiksem kui 8 
+			// kas parooli pikkus on vÃ¤iksem kui 8 
 			if ( strlen($_POST["signupPassword"]) < 8 ) {
 				
 				$signupPasswordError = "Parool peab olema vÃ¤hemalt 8 tÃ¤hemÃ¤rkki pikk";
@@ -94,11 +94,11 @@
 		
 	}
 	
-	// on üldse olemas selline muutja
+	// on Ã¼ldse olemas selline muutja
 	if( isset( $_POST["firstname"] ) ){
 		
 		//jah on olemas
-		//kas on tühi
+		//kas on tÃ¼hi
 		if( empty( $_POST["firstname"] ) ){
 			
 			$firstnameError = "See vÃ¤li on kohustuslik";
@@ -112,11 +112,11 @@
 		
 	} 
 	
-	// on üldse olemas selline muutja
+	// on Ã¼ldse olemas selline muutja
 	if( isset( $_POST["lastname"] ) ){
 		
 		//jah on olemas
-		//kas on tühi
+		//kas on tÃ¼hi
 		if( empty( $_POST["lastname"] ) ){
 			
 			$lastnameError = "See vÃ¤li on kohustuslik";
@@ -189,7 +189,7 @@
 	
 	
 	// peab olema email ja parool
-	// ühtegi errorit
+	// Ã¼htegi errorit
 	
 	if ( isset($_POST["signupEmail"]) && 
 		 isset($_POST["signupPassword"]) && 
