@@ -35,7 +35,7 @@
 	
 ?>
 
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 <br><label>Kursused</label><br>
 <?php
