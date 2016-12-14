@@ -46,7 +46,7 @@
 	$listHtml = "<ul>";
 	foreach($smallgroups as $sg) {
 		if ($sg->id != 0) {
-			$listHtml .= "<li>".$sg->name." <a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a>"."</li>";
+			$listHtml .= "<li>".$sg->name." <a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";

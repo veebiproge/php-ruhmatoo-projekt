@@ -27,6 +27,12 @@
 	
 	$courses = $Data->getFromTableOfTwo("courses");
 	
+	foreach ($courses as $c) {
+		if (isset($_GET["del"]) && $_GET["del"] == $c->id) {
+			$Data->removeAtt("pplInCourses", "course", $Helper->cleanInput($_GET["del"]), "courses");
+		}
+	}
+	
 ?>
 
 <?php require("../partials/loggedInHeader.php"); ?>
@@ -37,7 +43,7 @@
 	$listHtml = "<ul>";
 	foreach($courses as $c) {
 		if ($c->id != 0) {
-			$listHtml .= "<li>".$c->data."</li>";
+			$listHtml .= "<li>".$c->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$c->id."'>Eemalda</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";

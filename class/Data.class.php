@@ -107,6 +107,26 @@ class Data {
 		
 	}
 	
+	function removeAtt($table, $tableRow, $itemIndex, $attTable) {
+		
+		$allowedTables = ["pplInCourses", "l_o_wOnPpl", "giftsOnPpl", "pplInSmallgroups"];
+		$allowedRows = ["smallgroup", "course", "line_of_work", "gift"];
+		$attTables = ["gifts", "line_of_work", "courses"];
+		
+		if (!in_array($table, $allowedTables) OR !in_array($tableRow, $allowedRows)) return;
+		
+		$stmt = $this->connection->prepare("DELETE FROM $table WHERE $tableRow = ?");
+		$stmt->bind_param("i", $itemIndex);
+		$stmt->execute();
+		$stmt->close();
+		
+		$stmt = $this->connection->prepare("DELETE FROM $attTable WHERE id = ?");
+		$stmt->bind_param("i", $itemIndex);
+		$stmt->execute();
+		$stmt->close();
+		
+	}
+	
 	function saveToTableOfTwo($table, $value) {
 		
 		$allowedTables = ["courses", "line_of_work", "gifts"];

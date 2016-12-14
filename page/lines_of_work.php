@@ -27,18 +27,24 @@
 	
 	$lines_of_work = $Data->getFromTableOfTwo("line_of_work");
 	
+	foreach ($lines_of_work as $l) {
+		if (isset($_GET["del"]) && $_GET["del"] == $l->id) {
+			$Data->removeAtt("l_o_wOnPpl", "line_of_work", $Helper->cleanInput($_GET["del"]), "line_of_work");
+		}
+	}
+	
 ?>
 
 <?php require("../partials/loggedInHeader.php"); ?>
 
 
-<br><label>Tööharud</label><br>
+<br><label>TÃ¶Ã¶harud</label><br>
 <?php
 	
 	$listHtml = "<ul>";
 	foreach($lines_of_work as $l) {
 		if ($l->id != 0) {
-			$listHtml .= "<li>".$l->data."</li>";
+			$listHtml .= "<li>".$l->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$l->id."'>Eemalda</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";

@@ -27,6 +27,14 @@
 	
 	$gifts = $Data->getFromTableOfTwo("gifts");
 	
+	foreach ($gifts as $g) {
+		if (isset($_GET["del"]) && $_GET["del"] == $g->id) {
+			$Data->removeAtt("giftsOnPpl", "gift", $Helper->cleanInput($_GET["del"]), "gifts");
+		}
+	}
+	
+	$gifts = $Data->getFromTableOfTwo("gifts");
+	
 ?>
 
 <?php require("../partials/loggedInHeader.php"); ?>
@@ -36,8 +44,8 @@
 	
 	$listHtml = "<ul>";
 	foreach($gifts as $g) {
-		if ($g->id != 0) {
-			$listHtml .= "<li>".$g->data."</li>";
+		if (is_object($g)) {
+			$listHtml .= "<li>".$g->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$g->id."'>Eemalda</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";
