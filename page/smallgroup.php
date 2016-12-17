@@ -24,6 +24,12 @@
 		header("Location: smallgroup.php?id=".$_GET["id"]."&save=success");
 	}
 	
+	if (isset($_POST["del"])) {
+		$index = $Helper->cleanInput($_GET["id"]);
+		$Data->delSmallgroup($index);
+		header("Location: smallgroups.php");
+	}
+	
 	$ppl = $People->getPpl("", "", "", "");
 	$pplInSmallgroup = $Data->getPplInSmallgroup($Helper->cleanInput($_GET["id"]));
 	$smallgroup = $Data->getSmallgroups($Helper->cleanInput($_GET["id"]));
@@ -38,7 +44,7 @@
 	
 ?>
 
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 <?php
 	
@@ -73,7 +79,7 @@
 	if ($numberOfMembers == 0) {
 		$dataHtml .= "<td></td></tr>";
 	}
-	$dataHtml .= "<tr><th></th><td colspan = '2'><input type = 'submit' name = 'save' value = 'Salvesta'></td></tr>";
+	$dataHtml .= "<tr><th></th><td colspan = '2'><input type = 'submit' name = 'save' value = 'Salvesta'><input type = 'submit' name = 'del' value = 'Kustuta'></td></tr>";
 	$dataHtml .= "</table>";
 	$dataHtml .= "</form>";
 	

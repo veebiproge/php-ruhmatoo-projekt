@@ -33,6 +33,8 @@
 		}
 	}
 	
+	$courses = $Data->getFromTableOfTwo("courses");
+	
 ?>
 
 <?php require("../partials/header.php"); ?>
@@ -43,7 +45,7 @@
 	$listHtml = "<ul>";
 	foreach($courses as $c) {
 		if ($c->id != 0) {
-			$listHtml .= "<li>".$c->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$c->id."'>Eemalda</a></li>";
+			$listHtml .= "<li>".$c->data." <a class='btn btn-default btn-sm' href = 'courses.php?del=".$c->id."'>Eemalda</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";

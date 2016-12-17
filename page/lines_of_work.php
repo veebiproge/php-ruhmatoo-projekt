@@ -33,9 +33,11 @@
 		}
 	}
 	
+	$lines_of_work = $Data->getFromTableOfTwo("line_of_work");
+	
 ?>
 
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 
 <br><label>Tööharud</label><br>
@@ -44,7 +46,7 @@
 	$listHtml = "<ul>";
 	foreach($lines_of_work as $l) {
 		if ($l->id != 0) {
-			$listHtml .= "<li>".$l->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$l->id."'>Eemalda</a></li>";
+			$listHtml .= "<li>".$l->data." <a class='btn btn-default btn-sm' href = 'lines_of_work.php?del=".$l->id."'>Eemalda</a></li>";
 		}
 	}
 	$listHtml .= "</ul>";

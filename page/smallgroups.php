@@ -38,7 +38,7 @@
 	
 ?>
 
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 <br><label>Kodugrupid</label><br>
 <?php

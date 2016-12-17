@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-	
-?>
 <html>
 <head>
 	<title>CDB</title>
@@ -22,4 +19,25 @@
 	
 </head>
 <body>
-<div class = "container">
+
+<?php
+	
+	$header = "<div class = 'container-fluid'>";
+	if (isset($_SESSION["userId"])) {
+		$header .= "<div class = 'container-fluid'>";
+		$header .= "<nav class='navbar navbar-default'>";
+			$header .= "<ul class='nav navbar-nav navbar-right'>";
+			$header .= "<li role='presentation'><a href='profile.php?id=".$_SESSION['userId']."'>Profiil</a></li>";
+			$header .= "<li role='presentation'><a href='data.php'>Inimesed</a></li>";
+			$header .= "<li role='presentation'><a href='smallgroups.php'>Kodugrupid</a></li>";
+			$header .= "<li role='presentation'><a href='courses.php'>Kursused</a></li>";
+			$header .= "<li role='presentation'><a href='gifts.php'>Oskused</a></li>";
+			$header .= "<li role='presentation'><a href='lines_of_work.php'>Tööharud</a></li>";
+			$header .= "<li role='presentation'><a href='?logout=1'>Logi välja</a></li>";
+			$header .= "<li role='presentation'><a href='?logout=1'></a></li>";
+		$header .= "</ul>";
+	$header .= "</nav>";
+	}
+	echo $header;
+	
+?>

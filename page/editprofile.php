@@ -90,7 +90,7 @@
 	
 ?>
 
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 <?php
 

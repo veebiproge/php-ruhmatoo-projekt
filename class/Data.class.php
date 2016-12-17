@@ -138,6 +138,7 @@ class Data {
 		$stmt = $this->connection->prepare("INSERT INTO $table VALUES (DEFAULT, ?)");
 		$stmt->bind_param("s", $value);
 		$stmt->execute();
+		$stmt->close();
 		return;
 	}
 	
@@ -146,6 +147,7 @@ class Data {
 		$stmt = $this->connection->prepare("INSERT INTO smallgroups VALUES (DEFAULT, ?, ?, ?)");
 		$stmt->bind_param("ssi", $name, $address, $leader);
 		$stmt->execute();
+		$stmt->close();
 		return;
 	}
 	
@@ -154,6 +156,25 @@ class Data {
 		$stmt = $this->connection->prepare("UPDATE smallgroups SET leader = ?, address = ? WHERE id = ?");
 		$stmt->bind_param("isi", $leader, $address, $index);
 		$stmt->execute();
+		$stmt->close();
+		return;
+	}
+	
+	function delSmallgroup ($id) {
+		
+		$stmt = $this->connection->prepare("DELETE FROM pplInSmallgroups WHERE smallgroup = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$stmt->close();
+		
+		$stmt = $this->connection->prepare("DELETE FROM smallgroups WHERE id = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$stmt->close();
+		
+		return;
+		
+		
 	}
 	
 }

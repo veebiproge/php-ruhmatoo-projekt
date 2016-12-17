@@ -77,7 +77,7 @@
 	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
-<?php require("../partials/loggedInHeader.php"); ?>
+<?php require("../partials/header.php"); ?>
 
 <form>
 	Otsing:	
