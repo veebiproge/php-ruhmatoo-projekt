@@ -94,12 +94,12 @@
 	</select>
 	<input type = "submit" value = "Otsi"><br><br>
 </form>
-
+<div class = "container-full">
 <?php
 
 	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
 	$resultTbl .= "<table class = 'table'>";
-		$resultTbl .= "<tr border='2'>";
+		$resultTbl .= "<tr>";
 		
 			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
@@ -198,5 +198,7 @@
 		
 	echo $resultTbl
 ?>
+
+</div>
 
 <?php require("../partials/footer.php"); ?>

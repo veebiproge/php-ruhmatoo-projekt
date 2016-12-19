@@ -1,0 +1,65 @@
+<style>
+	
+	h2 {
+		font-weight: bold;
+	}
+	body {
+		font-weight: bold;
+		background-color: white;
+	}
+	
+	th, td {
+		padding: 15px;
+	}
+	
+	div.relative {
+		position: relative;
+		top: 50px;
+	}
+	
+	.container {
+		width: 70%;
+		background-color: #F8F8F8;
+		opacity: 0.80;
+	}
+	
+	.container-full {
+		width: 100%;
+		background-color: #F8F8F8;
+		opacity: 0.80;
+	}
+	
+	.smallTbl {
+		width: 100%;
+		background-color: #F8F8F8;
+		opacity: 0.80;
+		border-radius: 25px;
+	}
+	
+	.wideTbl {
+		width: 50%;
+		background-color: #F8F8F8;
+		opacity: 0.80;
+		border-radius: 25px;
+	}
+	
+	.container-fluid {
+		width: 100%;
+		background-image: url("../TheCross.jpg");
+		background-repeat: repeat-y;
+		min-height: 100vh;
+		max-height: 1080px;
+	}
+	
+	.row1 {
+		min-height: 100vh;
+		max-height: 1080px;
+		padding-top: 175px;
+	}
+	
+	.row2 {
+		min-height: 100px;
+		max-height: 1080px;
+	}
+	
+</style>

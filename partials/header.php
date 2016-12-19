@@ -7,15 +7,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+	<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
+	
+	
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+	<link href="../bootstrap.css" rel="stylesheet" type="text/css">
 	
+	<?php require_once("../design.css");?>
 	
 </head>
 <body>
@@ -24,8 +27,7 @@
 	
 	$header = "<div class = 'container-fluid'>";
 	if (isset($_SESSION["userId"])) {
-		$header .= "<div class = 'container-fluid'>";
-		$header .= "<nav class='navbar navbar-default'>";
+		$header .= "<nav class='navbar navbar-inverse'>";
 			$header .= "<ul class='nav navbar-nav navbar-right'>";
 			$header .= "<li role='presentation'><a href='profile.php?id=".$_SESSION['userId']."'>Profiil</a></li>";
 			$header .= "<li role='presentation'><a href='data.php'>Inimesed</a></li>";
