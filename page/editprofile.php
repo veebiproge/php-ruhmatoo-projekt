@@ -64,26 +64,37 @@
 	$person = $People->getPerson($Helper->cleanInput($_GET["id"]));
 	
 	foreach ($person[0]->line_of_work as $l) {
-		if (isset($_POST["del".$l->id])) {
+		if (isset($_POST["delLOW".$l->id])) {
 			$Data->removeAttribute("l_o_wOnPpl", "line_of_work", ($person[0]->id), ($l->id));
+			header("Location: editprofile.php?id=".$index);
 		}
 	}
 	
 	foreach ($person[0]->gift as $g) {
-		if (isset($_POST["del".$g->id])) {
+		if (isset($_POST["delGift".$g->id])) {
 			$Data->removeAttribute("giftsOnPpl", "gift", ($person[0]->id), ($g->id));
+			header("Location: editprofile.php?id=".$index);
 		}
 	}
 	
 	foreach ($person[0]->course as $c) {
-		if (isset($_POST["del".$c->id])) {
+		if (isset($_POST["delCourse".$c->id])) {
 			$Data->removeAttribute("pplInCourses", "course", ($person[0]->id), ($c->id));
+			header("Location: editprofile.php?id=".$index);
 		}
 	}
 	
 	foreach ($person[0]->smallgroup as $sg) {
-		if (isset($_POST["del".$sg->id])) {
+		if (isset($_POST["delSG".$sg->id])) {
 			$Data->removeAttribute("pplInSmallgroups", "smallgroup", ($person[0]->id), ($sg->id));
+			header("Location: editprofile.php?id=".$index);
+		}
+	}
+	
+	foreach ($person[0]->smallgroupToLead as $sl) {
+		if (isset($_POST["delSGToLead".$sl->id])) {
+			$Data->delSmallgroup($sl->id);
+			header("Location: editprofile.php?id=".$index);
 		}
 	}
 
@@ -119,7 +130,6 @@
 	$numberOfSmallgroupsToLead = count($person[0]->smallgroupToLead);
 	
 	$dataHtml = "";
-	$dataHtml .= "<div class = 'row2'>";
 	$dataHtml .= "<form method = 'POST'>";
 	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-1 relative'>";
 		$dataHtml .= "<div class = 'smallTbl'>";
@@ -132,77 +142,7 @@
 			$dataHtml .= "<td><input type = 'text' name = 'email' class = 'form-control' value = '".$person[0]->email."'></td></tr>";
 			$dataHtml .= "<tr><th>Telefon:</th>";
 			$dataHtml .= "<td><input type = 'text' name = 'phone' class = 'form-control' value = '".$person[0]->phonenumber."'></td></tr>";
-			$dataHtml .= "</div>";
-			$dataHtml .= "</table>";
-		$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	
-	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-3 relative'>";
-		$dataHtml .= "<div class = 'smallTbl'>";
-			$dataHtml .= "<table>";
-			$dataHtml .= "<tr><th rowspan = ".$numberOfLOW.">Tööharud:</th>";
-			foreach($person[0]->line_of_work as $l) {
-				if ($l != $person[0]->line_of_work[0]) {$dataHtml .= "<tr>";}
-				if (is_object($l)) {
-					$dataHtml .= "<td>".$l->name."</td>";
-					$dataHtml .= "<td><input type = 'submit' name = 'del".$l->id."' value = 'Eemalda'></td></tr>";
-				} else {
-					$dataHtml .= "<td colspan = '2'>".$l."</td></tr>";
-				}
-			}
-			$dataHtml .= "<tr><th rowspan = ".$numberOfGifts.">Oskused:</th>";
-			foreach($person[0]->gift as $g) {
-				if ($g != $person[0]->gift[0]) {$dataHtml .= "<tr>";}
-				if (is_object($g)) {
-					$dataHtml .= "<td>".$g->name."</td>";
-					$dataHtml .= "<td><input type = 'submit' name = 'del".$g->id."' value = 'Eemalda'></td></tr>";
-				} else {
-					$dataHtml .= "<td colspan = '2'>".$g."</td></tr>";
-				}
-			}
-			$dataHtml .= "<tr><th rowspan = ".$numberOfCourses.">Kursused:</th>";
-			foreach($person[0]->course as $c) {
-				if ($c != $person[0]->course[0]) {$dataHtml .= "<tr>";}
-				if (is_object($c)) {
-					$dataHtml .= "<td>".$c->name."</td>";
-					$dataHtml .= "<td><input type = 'submit' name = 'del".$c->id."' value = 'Eemalda'></td></tr>";
-				} else {
-					$dataHtml .= "<td colspan = '2'>".$c."</td></tr>";
-				}
-			}
-			$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">Väikegruppid(osaleja):</th>";
-			foreach($person[0]->smallgroup as $s) {
-				if ($s != $person[0]->smallgroup[0]) {$dataHtml .= "<tr>";}
-				if (is_object($s)) {
-					$dataHtml .= "<td>".$s->name."</td>";
-					$dataHtml .= "<td><input type = 'submit' name = 'del".$s->id."' value = 'Eemalda'></td></tr>";
-				} else {
-					$dataHtml .= "<td colspan = '2'>".$s."</td></tr>";
-				}
-			}
-			if ($numberOfSmallgroupsToLead > 0) {
-				$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroupsToLead.">Väikegruppid(juht):</th>";
-				foreach($person[0]->smallgroupToLead as $sl) {
-					if ($sl != $person[0]->smallgroupToLead[0]) {$dataHtml .= "<tr>";}
-					if (is_object($sl)) {
-					$dataHtml .= "<td>".$sl->name."</td>";
-					$dataHtml .= "<td><input type = 'submit' name = 'del".$sl->id."' value = 'Eemalda'></td></tr>";
-				} else {
-					$dataHtml .= "<td colspan = '2'>".$sl."</td></tr>";
-				}
-				}
-			}
-			$dataHtml .= "</table>";
-		$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	$dataHtml .= "<div class = 'row1'>";
-	
-	
-	$dataHtml .= "<div class = 'col-sm-6 col-sm-offset-1 relative'>";
-		$dataHtml .= "<div class = 'wideTbl relative'>";
-			$dataHtml .= "<table>";
-				$dataHtml .= "<tr><th>Sünnikuupäev:</th>";
+			$dataHtml .= "<tr><th>Sünnikuupäev:</th>";
 				$dataHtml .= "<td>".$person[0]->dob."</td></tr>";
 				$dataHtml .= "<tr><th>Päästetud:</th>";
 				$dataHtml .= "<td colspan = '2'><select name = 'saved_y'>";
@@ -266,16 +206,65 @@
 		$dataHtml .= "</div>";
 	$dataHtml .= "</div>";
 	
-	$dataHtml .= "<div class = 'col-sm-3 relative'>";
-		$dataHtml .= "<div class = 'wideTbl relative'>";
-			$dataHtml .= "<table>";
-			$dataHtml .= "<tr><th width = 250px height = 150px><center><input type = 'submit' value = 'Salvesta'></center></th></tr>";
+	$dataHtml .= "<div class = 'col-sm-4 col-sm-offset-3 relative'>";
+		$dataHtml .= "<div class = 'smallTbl'>";
+			$dataHtml .= "<table width = '100%'>";
+			$dataHtml .= "<tr><th rowspan = ".$numberOfLOW.">Tööharud:</th>";
+			foreach($person[0]->line_of_work as $l) {
+				if ($l != $person[0]->line_of_work[0]) {$dataHtml .= "<tr>";}
+				if (is_object($l)) {
+					$dataHtml .= "<td>".$l->name."</td>";
+					$dataHtml .= "<td><input type = 'submit' name = 'delLOW".$l->id."' value = 'Eemalda'></td></tr>";
+				} else {
+					$dataHtml .= "<td colspan = '2'>".$l."</td></tr>";
+				}
+			}
+			$dataHtml .= "<tr><th rowspan = ".$numberOfGifts.">Oskused:</th>";
+			foreach($person[0]->gift as $g) {
+				if ($g != $person[0]->gift[0]) {$dataHtml .= "<tr>";}
+				if (is_object($g)) {
+					$dataHtml .= "<td>".$g->name."</td>";
+					$dataHtml .= "<td><input type = 'submit' name = 'delGift".$g->id."' value = 'Eemalda'></td></tr>";
+				} else {
+					$dataHtml .= "<td colspan = '2'>".$g."</td></tr>";
+				}
+			}
+			$dataHtml .= "<tr><th rowspan = ".$numberOfCourses.">Kursused:</th>";
+			foreach($person[0]->course as $c) {
+				if ($c != $person[0]->course[0]) {$dataHtml .= "<tr>";}
+				if (is_object($c)) {
+					$dataHtml .= "<td>".$c->name."</td>";
+					$dataHtml .= "<td><input type = 'submit' name = 'delCourse".$c->id."' value = 'Eemalda'></td></tr>";
+				} else {
+					$dataHtml .= "<td colspan = '2'>".$c."</td></tr>";
+				}
+			}
+			$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroups.">Väikegruppid(osaleja):</th>";
+			foreach($person[0]->smallgroup as $s) {
+				if ($s != $person[0]->smallgroup[0]) {$dataHtml .= "<tr>";}
+				if (is_object($s)) {
+					$dataHtml .= "<td>".$s->name."</td>";
+					$dataHtml .= "<td><input type = 'submit' name = 'delSG".$s->id."' value = 'Eemalda'></td></tr>";
+				} else {
+					$dataHtml .= "<td colspan = '2'>".$s."</td></tr>";
+				}
+			}
+			if ($numberOfSmallgroupsToLead > 0) {
+				$dataHtml .= "<tr><th rowspan = ".$numberOfSmallgroupsToLead.">Väikegruppid(juht):</th>";
+				foreach($person[0]->smallgroupToLead as $sl) {
+					if ($sl != $person[0]->smallgroupToLead[0]) {$dataHtml .= "<tr>";}
+					if (is_object($sl)) {
+					$dataHtml .= "<td>".$sl->name."</td>";
+					$dataHtml .= "<td><input type = 'submit' name = 'delSGToLead".$sl->id."' value = 'Eemalda'></td></tr>";
+				} else {
+					$dataHtml .= "<td colspan = '2'>".$sl."</td></tr>";
+				}
+				}
+			}
+			$dataHtml .= "<tr><th></th><td></td><td><input type = 'submit' value = 'Salvesta'></td></tr>";
 			$dataHtml .= "</table>";
 		$dataHtml .= "</div>";
 	$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	
-	
 	$dataHtml .= "</form>";
 	
 	echo $dataHtml

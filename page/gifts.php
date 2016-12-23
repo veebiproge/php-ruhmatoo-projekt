@@ -39,25 +39,29 @@
 
 <?php require("../partials/header.php"); ?>
 
-<br><label>Oskused</label><br>
 <?php
+
+	$dataHtml = "";
+	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+		$dataHtml .= "<div class = 'smallTbl'>";
+			$dataHtml .= "<table width = '100%'>";
+				$dataHtml .= "<tr><th colspan = '2'><label>Oskused</label></th></tr>";
+				foreach($gifts as $g) {
+					if (is_object($g)) {
+						$dataHtml .= "<tr><th>".$g->data."</th><td><a class='btn btn-default btn-sm' href = 'gifts.php?del=".$g->id."'>Eemalda</a></td></tr>";
+					}
+				}
+				$dataHtml .= "<tr><th><label>Lisa uus</label></th></tr>";
+				$dataHtml .= "<form method = 'POST'>";
+					$dataHtml .= "<tr><th><input type = 'text' name = 'gift'></th>";
+					$dataHtml .= "<td><input type = 'submit' value = 'Salvesta'></td></tr>";
+				$dataHtml .= "</form>";
+			$dataHtml .= "</table>";
+		$dataHtml .= "</div>";
+	$dataHtml .= "</div>";
 	
-	$listHtml = "<ul>";
-	foreach($gifts as $g) {
-		if (is_object($g)) {
-			$listHtml .= "<li>".$g->data." <a class='btn btn-default btn-sm' href = 'gifts.php?del=".$g->id."'>Eemalda</a></li>";
-		}
-	}
-	$listHtml .= "</ul>";
-	
-	echo $listHtml;
+	echo $dataHtml;
 	
 ?>
-
-<br><label>Lisa uus</label><br>
-<form method = "POST">
-	<input type = "text" name = "gift">
-	<input type = "submit" value = "Salvesta">
-</form>
 
 <?php require("../partials/footer.php"); ?>

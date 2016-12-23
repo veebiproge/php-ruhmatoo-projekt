@@ -40,48 +40,45 @@
 
 <?php require("../partials/header.php"); ?>
 
-<br><label>Kodugrupid</label><br>
 <?php
 	
-	$listHtml = "<ul>";
-	foreach($smallgroups as $sg) {
-		if ($sg->id != 0) {
-			$listHtml .= "<li>".$sg->name." <a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a></li>";
-		}
-	}
-	$listHtml .= "</ul>";
-
-	echo $listHtml;
+	$dataHtml = "";
+	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+		$dataHtml .= "<div class = 'smallTbl relative'>";
+			$dataHtml .= "<table width = '100%'>";
+				$dataHtml .= "<tr><th><label>Kodugrupid</label></th></tr>";
+				foreach($smallgroups as $sg) {
+					if (is_object($sg)) {
+						$dataHtml .= "<tr><th>".$sg->name."</th><td><a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a></td></tr>";
+					}
+				}
+			$dataHtml .= "</table>";
+		$dataHtml .= "</div>";
+	$dataHtml .= "</div>";
+	
+	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+		$dataHtml .= "<div class = 'smallTbl relative'>";
+			$dataHtml .= "<table width = '100%'>";
+				$dataHtml .= "<form method = 'POST'>";
+				$dataHtml .= "<tr><th colspan = '2'><label>Lisa uus</label></th></tr>";
+				$dataHtml .= "<tr><th>Nimi:</th>";
+				$dataHtml .= "<td><input type = 'text' name = 'smallgroupName'></td></tr>";
+				$dataHtml .= "<tr><th>Aadress:</th>";
+				$dataHtml .= "<td><input type = 'text' name = 'smallgroupAddress'></td></tr>";
+				$dataHtml .= "<tr><th>Juht:</th>";
+				$dataHtml .= "<td><select name = 'smallgroupLeader'>";
+				foreach($people as $p) {
+					$dataHtml .= "<option value=".$p->id.">".$p->fname."</option>";
+				}
+				$dataHtml .= "</select></td></tr>";
+				$dataHtml .= "<tr><th></th><td><input type = 'submit' value = 'Salvesta'></td></tr>";
+				$dataHtml .= "</form>";
+			$dataHtml .= "</table>";
+		$dataHtml .= "</div>";
+	$dataHtml .= "</div>";
+	
+	echo $dataHtml;
 	
 ?>
-
-<br><label>Lisa uus</label><br>
-<form method = "POST">
-	<table class = "table" >
-		<div class = "row">
-			<div class = "col-md-1">Nimi:</div>
-			<div class = "col-md-1"><input type = "text" name = "smallgroupName"></div>
-		</div>
-		<div class = "row">
-			<div class = "col-md-1">Aadress:</div>
-			<div class = "col-md-1"><input type = "text" name = "smallgroupAddress"></div>
-		</div>
-		<div class = "row">
-			<div class = "col-md-1">Juht:</div>
-			<div class = "col-md-1">
-			<select name = "smallgroupLeader">
-				<?php foreach($people as $p) {
-					echo "<option value=".$p->id.">".$p->fname."</option>";
-				}
-				?>
-			</select>
-			</div>
-		</div>
-		<div class = "row">
-		<div class = "col-md-1"></div>
-		<div class = "col-md-1"><input type = "submit" value = "Salvesta"></div>
-		</div>
-	</table>
-</form>
 
 <?php require("../partials/footer.php"); ?>

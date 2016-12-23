@@ -39,26 +39,30 @@
 
 <?php require("../partials/header.php"); ?>
 
-
-<br><label>Tööharud</label><br>
 <?php
 	
-	$listHtml = "<ul>";
-	foreach($lines_of_work as $l) {
-		if ($l->id != 0) {
-			$listHtml .= "<li>".$l->data." <a class='btn btn-default btn-sm' href = 'lines_of_work.php?del=".$l->id."'>Eemalda</a></li>";
-		}
-	}
-	$listHtml .= "</ul>";
+	$dataHtml = "";
+	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+		$dataHtml .= "<div class = 'smallTbl'>";
+			$dataHtml .= "<table width = '100%'>";
+				$dataHtml .= "<tr><th colspan = '2'><label>Tööharud</label></th></tr>";
+				foreach($lines_of_work as $l) {
+					if (is_object($l)) {
+						$dataHtml .= "<tr><th>".$l->data."</th><td><a class='btn btn-default btn-sm' href = 'lines_of_work.php?del=".$l->id."'>Eemalda</a></td></tr>";
+					}
+				}
+				$dataHtml .= "<tr><th><label>Lisa uus</label></th></tr>";
+				$dataHtml .= "<form method = 'POST'>";
+					$dataHtml .= "<tr><th><input type = 'text' name = 'line_of_work'></th>";
+					$dataHtml .= "<td><input type = 'submit' value = 'Salvesta'></td></tr>";
+				$dataHtml .= "</form>";
+			$dataHtml .= "</table>";
+		$dataHtml .= "</div>";
+	$dataHtml .= "</div>";
+			
 	
-	echo $listHtml;
+	echo $dataHtml;
 	
 ?>
-
-<br><label>Lisa uus</label><br>
-<form method = "POST">
-	<input type = "text" name = "line_of_work">
-	<input type = "submit" value = "Salvesta">
-</form>
 
 <?php require("../partials/footer.php"); ?>

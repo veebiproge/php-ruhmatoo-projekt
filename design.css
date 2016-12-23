@@ -10,11 +10,27 @@
 	
 	th, td {
 		padding: 15px;
+		height: 65px;
+		
+	}
+	
+	tr + tr { border-top: 1px solid; }
+	
+	th.smTbl{
+		height: 25px;
+	}
+	
+	td.smTbl{
+		height: 25px;
 	}
 	
 	div.relative {
 		position: relative;
-		top: 50px;
+		padding-top: 25px;
+	}
+	
+	div.oneTblOnPage{
+		
 	}
 	
 	.container {
@@ -48,18 +64,12 @@
 		background-image: url("../TheCross.jpg");
 		background-repeat: repeat-y;
 		min-height: 100vh;
-		max-height: 1080px;
 	}
 	
 	.row1 {
 		min-height: 100vh;
-		max-height: 1080px;
 		padding-top: 175px;
 	}
 	
-	.row2 {
-		min-height: 100px;
-		max-height: 1080px;
-	}
 	
 </style>

@@ -32,7 +32,10 @@
 		session_destroy();
 		header("Location: login.php");
 		exit();
+	} elseif (isset($_POST["change"])) {
+		header("Location: editprofile.php?id=".$Helper->cleanInput($_GET['id']));
 	}
+	
 
 	$person = $People->getPerson($Helper->cleanInput($_GET["id"]));
 	
@@ -65,10 +68,10 @@
 	$numberOfSmallgroupsToLead = count($person[0]->smallgroupToLead);
 	
 	$dataHtml = "";
-	$dataHtml .= "<div class = 'row2'>";
-	$dataHtml .= "<div class = 'col-sm-2 col-sm-offset-1 relative'>";
+	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-1 relative'>";
 		$dataHtml .= "<div class = 'smallTbl'>";
-			$dataHtml .= "<table><tr><th>Eesnimi: </th>";
+			$dataHtml .= "<table width = '100%'>";
+			$dataHtml .= "<tr><th>Eesnimi: </th>";
 			$dataHtml .= "<td>".$person[0]->fname."</td></tr>";
 			$dataHtml .= "<tr><th>Perekonnanimi: </th>";
 			$dataHtml .= "<td>".$person[0]->lname."</td></tr>";
@@ -76,14 +79,21 @@
 			$dataHtml .= "<td>".$person[0]->email."</td></tr>";
 			$dataHtml .= "<tr><th>Telefon:</th>";
 			$dataHtml .= "<td>".$person[0]->phonenumber."</td></tr>";
+			$dataHtml .= "<tr><th>Sünnikuupäev:</th>";
+			$dataHtml .= "<td>".$person[0]->dob."</td></tr>";
+			$dataHtml .= "<tr><th>Päästetud:</th>";
+			$dataHtml .= "<td>".$person[0]->saved."</td></tr>";
+			$dataHtml .= "<tr><th>Ristitud:</th>";
+			$dataHtml .= "<td>".$person[0]->baptised."</td></tr>";
 			$dataHtml .= "</table>";
 		$dataHtml .= "</div>";
 	$dataHtml .= "</div>";
 	
 	
-	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+	$dataHtml .= "<div class = 'col-sm-4 col-sm-offset-3 relative'>";
 		$dataHtml .= "<div class = 'smallTbl'>";
-			$dataHtml .= "<table>";
+			$dataHtml .= "<table width = '100%'>";
+			$dataHtml .= "<form method = 'POST'>";
 			$dataHtml .= "<tr><th rowspan = ".$numberOfLOW.">Tööharud:</th>";
 			foreach($person[0]->line_of_work as $l) {
 				if ($l != $person[0]->line_of_work[0]) {$dataHtml .= "<tr>";}
@@ -114,7 +124,8 @@
 				}
 			}
 			
-			if ($numberOfSmallgroupsToLead <= 0) { $dataHtml .= "<tr>"; } else { $dataHtml .= "<tr>"; }
+			//if ($numberOfSmallgroupsToLead <= 0) { $dataHtml .= "<tr>"; } else { $dataHtml .= "<tr>"; }
+			$dataHtml .= "<tr>";
 			$dataHtml .= "<th rowspan = ".$numberOfSmallgroups.">Väikegruppid(osaleja):</th>";
 			foreach($person[0]->smallgroup as $s) {
 				if ($s != $person[0]->smallgroup[0]) {$dataHtml .= "<tr>";}
@@ -136,37 +147,14 @@
 				}
 				}
 			}
-			$dataHtml .= "</table>";
-		$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	
-	
-	
-	$dataHtml .= "<div class = 'row1'>";
-	$dataHtml .= "<div class = 'col-sm-6 col-sm-offset-1 relative'>";
-		$dataHtml .= "<div class = 'wideTbl relative'>";
-			$dataHtml .= "<table>";
-			$dataHtml .= "<tr><th>Sünnikuupäev:</th>";
-			$dataHtml .= "<td>".$person[0]->dob."</td></tr>";
-			$dataHtml .= "<tr><th>Päästetud:</th>";
-			$dataHtml .= "<td>".$person[0]->saved."</td></tr>";
-			$dataHtml .= "<tr><th>Ristitud:</th>";
-			$dataHtml .= "<td>".$person[0]->baptised."</td></tr>";
+			
+			$dataHtml .= "<tr><th></th><td><input type = 'submit' name = 'change' value = 'Muuda'</td></tr>";
+			$dataHtml .= "</form>";
 			$dataHtml .= "</table>";
 		$dataHtml .= "</div>";
 	$dataHtml .= "</div>";
 	
-	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset relative'>";
-		$dataHtml .= "<div class = 'wideTbl relative'>";
-			$dataHtml .= "<table>";
-			$dataHtml .= "<tr><th width = 250px height = 150px><center><a class='btn btn-default btn-sm' href = 'editprofile.php?id=".$Helper->cleanInput($_GET["id"])."'>Muuda</a></center></th></tr>";
-			$dataHtml .= "</table>";
-		$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
-	
-	echo $dataHtml
+	echo $dataHtml;
 	
 ?>
 
