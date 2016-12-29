@@ -13,9 +13,9 @@
 	
 	if (!isset($_SESSION["userId"])){
 		
-		//Redirect to login page
 		header("Location: login.php");
 		exit();
+		
 	}
 	
 	if (isset($_GET["logout"])) {
@@ -23,6 +23,7 @@
 		session_destroy();
 		header("Location: login.php");
 		exit();
+		
 	}
 	
 	if (isset($_POST["smallgroupName"]) && !empty($_POST["smallgroupName"]) &&
@@ -46,36 +47,53 @@
 	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
 		$dataHtml .= "<div class = 'smallTbl relative'>";
 			$dataHtml .= "<table width = '100%'>";
+				
 				$dataHtml .= "<tr><th><label>Kodugrupid</label></th></tr>";
+				
 				foreach($smallgroups as $sg) {
 					if (is_object($sg)) {
 						$dataHtml .= "<tr><th>".$sg->name."</th><td><a class='btn btn-default btn-sm' href = 'smallgroup.php?id=".$sg->id."'>Vaata lähemalt</a></td></tr>";
 					}
 				}
+				
 			$dataHtml .= "</table>";
 		$dataHtml .= "</div>";
 	$dataHtml .= "</div>";
 	
-	$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
-		$dataHtml .= "<div class = 'smallTbl relative'>";
-			$dataHtml .= "<table width = '100%'>";
-				$dataHtml .= "<form method = 'POST'>";
-				$dataHtml .= "<tr><th colspan = '2'><label>Lisa uus</label></th></tr>";
-				$dataHtml .= "<tr><th>Nimi:</th>";
-				$dataHtml .= "<td><input type = 'text' name = 'smallgroupName'></td></tr>";
-				$dataHtml .= "<tr><th>Aadress:</th>";
-				$dataHtml .= "<td><input type = 'text' name = 'smallgroupAddress'></td></tr>";
-				$dataHtml .= "<tr><th>Juht:</th>";
-				$dataHtml .= "<td><select name = 'smallgroupLeader'>";
-				foreach($people as $p) {
-					$dataHtml .= "<option value=".$p->id.">".$p->fname."</option>";
-				}
-				$dataHtml .= "</select></td></tr>";
-				$dataHtml .= "<tr><th></th><td><input type = 'submit' value = 'Salvesta'></td></tr>";
-				$dataHtml .= "</form>";
-			$dataHtml .= "</table>";
+	if ($_SESSION["rights"] >= 5) {
+		$dataHtml .= "<div class = 'col-sm-3 col-sm-offset-4 relative'>";
+			$dataHtml .= "<div class = 'smallTbl relative'>";
+				$dataHtml .= "<table width = '100%'>";
+					$dataHtml .= "<form method = 'POST'>";
+						
+						$dataHtml .= "<tr><th colspan = '2'><label>Lisa uus</label></th></tr>";
+						
+						$dataHtml .= "<tr>";
+							$dataHtml .= "<th>Nimi:</th>";
+							$dataHtml .= "<td><input type = 'text' name = 'smallgroupName'></td>";
+						$dataHtml .= "</tr>";
+						
+						$dataHtml .= "<tr>";
+							$dataHtml .= "<th>Aadress:</th>";
+							$dataHtml .= "<td><input type = 'text' name = 'smallgroupAddress'></td>";
+						$dataHtml .= "</tr>";
+						
+						$dataHtml .= "<tr>";
+							$dataHtml .= "<th>Juht:</th>";
+							$dataHtml .= "<td><select name = 'smallgroupLeader'>";
+							foreach($people as $p) {
+								$dataHtml .= "<option value=".$p->id.">".$p->fname."</option>";
+							}
+							$dataHtml .= "</select></td>";
+						$dataHtml .= "</tr>";
+						
+						$dataHtml .= "<tr><th></th><td><input type = 'submit' value = 'Salvesta'></td></tr>";
+					
+					$dataHtml .= "</form>";
+				$dataHtml .= "</table>";
+			$dataHtml .= "</div>";
 		$dataHtml .= "</div>";
-	$dataHtml .= "</div>";
+	}
 	
 	echo $dataHtml;
 	

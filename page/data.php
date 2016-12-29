@@ -15,6 +15,12 @@
 		
 		header("Location: login.php");
 		exit();
+		
+	} elseif ($_SESSION["rights"] < 5) {
+		
+		header("Location: profile.php?id=".$_SESSION["userId"]);
+		exit();
+		
 	}
 	
 	if (isset($_GET["logout"])) {
@@ -22,26 +28,39 @@
 		session_destroy();
 		header("Location: login.php");
 		exit();
+		
 	}
 	
 	if (isset($_GET["search"])) {
+		
 		$search = $Helper->cleanInput($_GET["search"]);
+		
 	} else {
+		
 		$search = "";
+		
 	}
 	
 	if(isset($_GET["searchBy"])) {
+		
 		$searchBy = $Helper->cleanInput($_GET["searchBy"]);
+		
 	} else {
+		
 		$searchBy = "id";
+		
 	}
 	
 	if (isset($_GET["sort"]) && isset($_GET["order"])) {
+		
 		$sort = $Helper->cleanInput($_GET["sort"]);
 		$order = $Helper->cleanInput($_GET["order"]);
+		
 	} else {
+		
 		$sort = "id";
 		$order = "ASC";
+		
 	}
 	
 	$lines_of_work = $Data->getFromTableOfTwo("line_of_work");
@@ -51,32 +70,49 @@
 	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 	foreach($results as $r) {
+		
 		if (isset($_POST['lowToJoin']) && isset($_POST["addLow".$r->id])) {
-			$Data->addAttribute("l_o_wOnPpl", $_POST['lowToJoin'], $r->id);
+			
+			$Data->addAttribute("l_o_wOnPpl", $Helper->cleanInput($_POST['lowToJoin']), $r->id);
+			
 		}
+		
 	}
 	
 	foreach($results as $r) {
+		
 		if (isset($_POST['gToJoin']) && isset($_POST["addG".$r->id])) {
-			$Data->addAttribute("giftsOnPpl", $_POST['gToJoin'], $r->id);
+			
+			$Data->addAttribute("giftsOnPpl", $Helper->cleanInput($_POST['gToJoin']), $r->id);
+			
 		}
+		
 	}
 	
 	foreach($results as $r) {
+		
 		if (isset($_POST['cToJoin']) && isset($_POST["addC".$r->id])) {
-			$Data->addAttribute("pplInCourses", $_POST['cToJoin'], $r->id);
+			
+			$Data->addAttribute("pplInCourses", $Helper->cleanInput($_POST['cToJoin']), $r->id);
+			
 		}
+		
 	}
 	
 	foreach($results as $r) {
+		
 		if (isset($_POST['sgToJoin']) && isset($_POST["addSg".$r->id])) {
-			$Data->addAttribute("pplInSmallgroups", $_POST['sgToJoin'], $r->id);
+			
+			$Data->addAttribute("pplInSmallgroups", $Helper->cleanInput($_POST['sgToJoin']), $r->id);
+			
 		}
+		
 	}
 	
 	$results = $People->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
+
 <?php require("../partials/header.php"); ?>
 
 <form>
@@ -94,7 +130,9 @@
 	</select>
 	<input type = "submit" value = "Otsi"><br><br>
 </form>
+
 <div class = "container-full">
+
 <?php
 
 	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
@@ -137,64 +175,64 @@
 			$resultToTbl = $People->sortResults("baptised", "Ristitud", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			if ($_SESSION["rights"] > 4) {
+			if ($_SESSION["rights"] >= 5) {
 				$resultTbl .= "<th></th>";
 			}
 			
 		$resultTbl .= "</tr>";
 		
-		foreach($results as $r) {
-			$resultTbl .= "<tr>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
-			$resultTbl .= "<form method = 'POST'>";
-			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->line_of_work;
-			$resultTbl .= "<select name = 'lowToJoin'>";
-			foreach ($lines_of_work as $low) {
-				$resultTbl .= "<option value = '".$low->id."'>".$low->data."</option>";
+			foreach($results as $r) {
+				$resultTbl .= "<tr>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
+					$resultTbl .= "<form method = 'POST'>";
+					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->line_of_work;
+					$resultTbl .= "<select name = 'lowToJoin'>";
+					foreach ($lines_of_work as $low) {
+						$resultTbl .= "<option value = '".$low->id."'>".$low->data."</option>";
+					}
+					$resultTbl .= "</select'>";
+					$resultTbl .= "<input type = 'submit' name = 'addLow".$r->id."' value = 'Lisa Tööharu'>";
+					$resultTbl .= "</td>";
+					
+					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->gift;
+					$resultTbl .= "<select name = 'gToJoin'>";
+					foreach ($gifts as $g) {
+						$resultTbl .= "<option value = '".$g->id."'>".$g->data."</option>";
+					}
+					$resultTbl .= "</select'>";
+					$resultTbl .= "<input type = 'submit' name = 'addG".$r->id."' value = 'Lisa Oskus'>";
+					$resultTbl .= "</td>";
+					
+					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->course;
+					$resultTbl .= "<select name = 'cToJoin'>";
+					foreach ($courses as $c) {
+						$resultTbl .= "<option value = '".$c->id."'>".$c->data."</option>";
+					}
+					$resultTbl .= "</select'>";
+					$resultTbl .= "<input type = 'submit' name = 'addC".$r->id."' value = 'Lisa kursusele'>";
+					$resultTbl .= "</td>";
+					
+					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->smallgroup;
+					$resultTbl .= "<select name = 'sgToJoin'>";
+					foreach ($smallgroups as $sg) {
+						$resultTbl .= "<option value = '".$sg->id."'>".$sg->name."</option>";
+					}
+					$resultTbl .= "</select'>";
+					$resultTbl .= "<input type = 'submit' name = 'addSg".$r->id."' value = 'Lisa Gruppi'>";
+					$resultTbl .= "</td>";
+					$resultTbl .= "</form>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->sgLeader."</td>";
+					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
+					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
+					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
+					if ($_SESSION["rights"] >= 5) {
+						$resultTbl .= "<td style = 'text-align:center' width = '100'> <a class='btn btn-default btn-sm' href = 'profile.php?id=".$r->id."'>Vaata</a> </td>";
+				}
+			$resultTbl .= "</tr>";
 			}
-			$resultTbl .= "</select'>";
-			$resultTbl .= "<input type = 'submit' name = 'addLow".$r->id."' value = 'Lisa Tööharu'>";
-			$resultTbl .= "</td>";
-			
-			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->gift;
-			$resultTbl .= "<select name = 'gToJoin'>";
-			foreach ($gifts as $g) {
-				$resultTbl .= "<option value = '".$g->id."'>".$g->data."</option>";
-			}
-			$resultTbl .= "</select'>";
-			$resultTbl .= "<input type = 'submit' name = 'addG".$r->id."' value = 'Lisa Oskus'>";
-			$resultTbl .= "</td>";
-			
-			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->course;
-			$resultTbl .= "<select name = 'cToJoin'>";
-			foreach ($courses as $c) {
-				$resultTbl .= "<option value = '".$c->id."'>".$c->data."</option>";
-			}
-			$resultTbl .= "</select'>";
-			$resultTbl .= "<input type = 'submit' name = 'addC".$r->id."' value = 'Lisa kursusele'>";
-			$resultTbl .= "</td>";
-			
-			$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->smallgroup;
-			$resultTbl .= "<select name = 'sgToJoin'>";
-			foreach ($smallgroups as $sg) {
-				$resultTbl .= "<option value = '".$sg->id."'>".$sg->name."</option>";
-			}
-			$resultTbl .= "</select'>";
-			$resultTbl .= "<input type = 'submit' name = 'addSg".$r->id."' value = 'Lisa Gruppi'>";
-			$resultTbl .= "</td>";
-			$resultTbl .= "</form>";
-			$resultTbl .= "<td style = 'text-align:center'>".$r->sgLeader."</td>";
-			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
-			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
-			$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
-			if ($_SESSION["rights"] > 4) {
-				$resultTbl .= "<td style = 'text-align:center' width = '100'> <a class='btn btn-default btn-sm' href = 'profile.php?id=".$r->id."'>Vaata</a> </td>";
-			}
-		$resultTbl .= "</tr>";
-		}
 		
 	echo $resultTbl
 ?>

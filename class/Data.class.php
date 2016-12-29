@@ -15,6 +15,8 @@ class Data {
 		$stmt = $this->connection->prepare("INSERT INTO $table VALUES (DEFAULT, ?, ?)");
 		$stmt->bind_param("ii", $person, $attribute);
 		$stmt->execute();
+		$stmt->close();
+		return;
 		
 	}
 	
@@ -64,6 +66,7 @@ class Data {
 			array_push($results, $result);
 		}
 		
+		$stmt->close();
 		return $results;
 		
 	}
@@ -71,13 +74,18 @@ class Data {
 	function getSmallgroups($index) {
 		
 		$results = array();
-		$index = "%".$index."%";
 		
-		$stmt = $this->connection->prepare("
-			SELECT t1.id, name, address, firstname, t2.id FROM (SELECT * FROM smallgroups WHERE id LIKE ?) AS t1 JOIN (SELECT id, firstname FROM people) AS t2 ON t1.leader=t2.id
-		");
-		$stmt->bind_param("s", $index);
-		$stmt->bind_result($id, $name, $address, $leader, $leaderId);
+		if ($index != "") {
+			$stmt = $this->connection->prepare("
+				SELECT t1.id, name, address, firstname, lastname, t2.id FROM (SELECT * FROM smallgroups WHERE id = ?) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.leader=t2.id
+			");
+			$stmt->bind_param("s", $index);
+		} else {
+			$stmt = $this->connection->prepare("
+				SELECT t1.id, name, address, firstname, lastname, t2.id FROM (SELECT * FROM smallgroups) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.leader=t2.id
+			");
+		}
+		$stmt->bind_result($id, $name, $address, $leaderFirstname, $leaderLastname, $leaderId);
 		$stmt->execute();
 		
 		while ($stmt->fetch()) {
@@ -85,11 +93,13 @@ class Data {
 			$result->id = $id;
 			$result->name = $name;
 			$result->address = $address;
-			$result->leader = $leader;
+			$result->leaderFirstname = $leaderFirstname;
+			$result->leaderLastname = $leaderLastname;
 			$result->leaderId = $leaderId;
 			array_push($results, $result);
 		}
 		
+		$stmt->close();
 		return $results;
 		
 	}
@@ -104,6 +114,7 @@ class Data {
 		$stmt->bind_param("ii", $person, $attribute);
 		$stmt->execute();
 		$stmt->close();
+		return;
 		
 	}
 	
@@ -124,6 +135,7 @@ class Data {
 		$stmt->bind_param("i", $itemIndex);
 		$stmt->execute();
 		$stmt->close();
+		return;
 		
 	}
 	
@@ -171,9 +183,7 @@ class Data {
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
 		$stmt->close();
-		
 		return;
-		
 		
 	}
 	
