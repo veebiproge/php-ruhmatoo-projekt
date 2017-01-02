@@ -11,11 +11,9 @@ class User {
 		// $this viitab sellele klassile
 		$this->connection = $link;
 		
-		
 	}
 	
 	//Teised funktsioonid
-	
 	function login ($username, $password) {
 		
 		$error = "";
@@ -60,7 +58,6 @@ class User {
 				$error = "vale parool";
 			}
 			
-			
 		} else {
 			
 			// ei leidnud kasutajat selle meiliga
@@ -71,10 +68,8 @@ class User {
 		
 	}
 	
-	
 	function signUp ($email, $password, $username, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised) {
-		
-
+	
 		$stmt = $this->connection->prepare("INSERT INTO people (email, password, username, firstname, lastname, phonenumber, date_of_birth, saved, baptised) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	
 		echo $this->connection->error;
@@ -82,16 +77,20 @@ class User {
 		$stmt->bind_param("sssssisss", $email, $password, $username, $firstname, $lastname, $phoneNumber, $dateOfBirth, $saved, $baptised);
 		
 		if($stmt->execute()) {
+			
 			echo "salvestamine õnnestus";
 			header("Location: login.php");
 			exit();
+			
 		} else {
+			
 		 	echo "ERROR ".$stmt->error;
+			
 		}
 		
 		$stmt->close();		
+		
 	}
-	
 	
 }
 ?>
