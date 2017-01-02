@@ -20,13 +20,13 @@
 		
 	}
 	
-	if ( isset($_POST["loginUsername"]) && 
+	if ( isset($_POST["loginId"]) && 
 		isset($_POST["loginPassword"]) && 
-		!empty($_POST["loginUsername"]) && 
+		!empty($_POST["loginId"]) && 
 		!empty($_POST["loginPassword"])
 	  ) {
 		  
-		$error = $User->login($Helper->cleanInput($_POST["loginUsername"]), $Helper->cleanInput($_POST["loginPassword"]));
+		$error = $User->login($Helper->cleanInput($_POST["loginId"]), $Helper->cleanInput($_POST["loginPassword"]));
 		
 	}
 
@@ -45,7 +45,7 @@
 					<p style="color:red;"><?=$error;?></p>
 					<br>
 						<div class="form-group">
-							<input class="form-control" name="loginUsername" placeholder="E-mail / Kasutajanimi" type="text">
+							<input class="form-control" name="loginId" placeholder="E-mail / Kasutajanimi" type="text">
 						</div>
 					<br>
 					<input class="form-control" type="password" name="loginPassword" placeholder="Parool">

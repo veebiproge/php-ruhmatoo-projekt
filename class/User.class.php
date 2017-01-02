@@ -14,19 +14,19 @@ class User {
 	}
 	
 	//Teised funktsioonid
-	function login ($username, $password) {
+	function login ($loginId, $password) {
 		
 		$error = "";
 
 		$stmt = $this->connection->prepare("
 		SELECT id, username, password, rights
 		FROM people
-		WHERE username = ?");
+		WHERE username = ? OR email = ?");
 	
 		echo $this->connection->error;
 		
 		//asendan küsimärgi
-		$stmt->bind_param("s", $username);
+		$stmt->bind_param("ss", $loginId, $loginId);
 		
 		//määran väärtused muutujatesse
 		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb, $rights);
