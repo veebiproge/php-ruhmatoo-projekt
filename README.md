@@ -1,8 +1,8 @@
 # CDB
 
 
-1. **Projekti veebirakenduse pilt?**
-	* ??
+1. **Projekti veebirakenduse pilt:**
+	* Veebirakenduse pilt
 
 
 1. **Liikmed:**
@@ -16,7 +16,7 @@
 	
 1. **Kirjeldus:**
 	* Sihtrühm - Kirik 
-	* Eripära
+	* Eripära...
 	
 	
 1. **Funktsionaalsuse loetelu:**
@@ -31,7 +31,10 @@
 	
 1. **Andmebaasi skeem + tabelite SQL laused:**
 	* Skeem
-		* CREATE TABLE `people` (
+		* Skeemi pilt
+
+	* Laused
+		 * CREATE TABLE `people` (
 		 `id` int(11) NOT NULL AUTO_INCREMENT,
 		 `username` varchar(100) NOT NULL,
 		 `password` varchar(128) NOT NULL,
@@ -48,9 +51,84 @@
 		 UNIQUE KEY `username` (`username`),
 		 UNIQUE KEY `email` (`email`)
 		 ) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1
-
-	* Laused
-	
+		 
+		 * CREATE TABLE `courses` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `course` varchar(50) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 UNIQUE KEY `course` (`course`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `gifts` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `gift` varchar(50) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 UNIQUE KEY `gift` (`gift`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `giftsOnPpl` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `person` int(11) NOT NULL,
+		 `gift` int(11) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 KEY `person` (`person`),
+		 KEY `giftsOnPpl_ibfk_2` (`gift`),
+		 CONSTRAINT `giftsOnPpl_ibfk_1` FOREIGN KEY (`person`) REFERENCES `people` (`id`),
+		 CONSTRAINT `giftsOnPpl_ibfk_2` FOREIGN KEY (`gift`) REFERENCES `gifts` (`id`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `line_of_work` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `line_of_work` varchar(50) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 UNIQUE KEY `line_of_work` (`line_of_work`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `l_o_wOnPpl` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `person` int(11) NOT NULL,
+		 `line_of_work` int(11) NOT NULL DEFAULT '1',
+		 PRIMARY KEY (`id`),
+		 KEY `person` (`person`),
+		 KEY `l_o_wOnPpl_ibfk_2` (`line_of_work`),
+		 CONSTRAINT `l_o_wOnPpl_ibfk_1` FOREIGN KEY (`person`) REFERENCES `people` (`id`),
+		 CONSTRAINT `l_o_wOnPpl_ibfk_2` FOREIGN KEY (`line_of_work`) REFERENCES `line_of_work` (`id`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `pplInCourses` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `person` int(11) NOT NULL,
+		 `course` int(11) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 KEY `person` (`person`),
+		 KEY `pplInCourses_ibfk_2` (`course`),
+		 CONSTRAINT `pplInCourses_ibfk_1` FOREIGN KEY (`person`) REFERENCES `people` (`id`),
+		 CONSTRAINT `pplInCourses_ibfk_2` FOREIGN KEY (`course`) REFERENCES `courses` (`id`)
+		 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `pplInSmallgroups` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `person` int(11) NOT NULL,
+		 `smallgroup` int(11) NOT NULL,
+		 PRIMARY KEY (`id`),
+		 KEY `smallgroup` (`smallgroup`),
+		 KEY `person` (`person`),
+		 CONSTRAINT `pplInSmallgroups_ibfk_1` FOREIGN KEY (`smallgroup`) REFERENCES `smallgroups` (`id`),
+		 CONSTRAINT `pplInSmallgroups_ibfk_2` FOREIGN KEY (`person`) REFERENCES `people` (`id`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1
+		 
+		 * CREATE TABLE `smallgroups` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `name` varchar(50) NOT NULL,
+		 `address` varchar(50) NOT NULL,
+		 `leader` int(11) NOT NULL,
+		 `meetingTime` varchar(100) DEFAULT NULL,
+		 PRIMARY KEY (`id`),
+		 UNIQUE KEY `name` (`name`),
+		 KEY `leader` (`leader`),
+		 CONSTRAINT `leader` FOREIGN KEY (`leader`) REFERENCES `people` (`id`)
+		 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1
+		 
 	
 1. **Kokkuvõte:**
 	* Rando 
@@ -63,7 +141,7 @@
 	
 '''''''
 -----------------------------------
-'''''''
+
 
 	
 1. **Lehed:**
