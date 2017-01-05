@@ -2,8 +2,8 @@
 	
 	require_once("../functions.php"); 
 	
-	require_once("../class/People.class.php");
-	$People = new People($link);
+	require_once("../class/User.class.php");
+	$User = new User($link);
 	
 	require_once("../class/Data.class.php");
 	$Data = new Data($link);
@@ -67,7 +67,7 @@
 	$gifts = $Data->getFromTableOfTwo("gifts");
 	$courses = $Data->getFromTableOfTwo("courses");
 	$smallgroups = $Data->getSmallgroups("");
-	$results = $People->getPpl($search, $searchBy, $sort, $order);
+	$results = $User->getPpl($search, $searchBy, $sort, $order);
 	
 	foreach($results as $r) {
 		
@@ -89,17 +89,17 @@
 			
 		} elseif (isset($_POST["approve".$r->id])) {
 			
-			$Data->approve($r->id);
+			$User->approve($r->id);
 			
 		} elseif (isset($_POST["archive".$r->id])) {
 			
-			$Data->archive($r->id);
+			$User->archive($r->id);
 			
 		}
 		
 	}
 	
-	$results = $People->getPpl($search, $searchBy, $sort, $order);
+	$results = $User->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
 
@@ -134,26 +134,26 @@
 	$resultTbl .= "<table class = 'table' width = '100%'>";
 		$resultTbl .= "<tr>";
 		
-			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
+			$resultToTbl = $User->sortResults("firstname", "Eesnimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("lastname", "Perenimi", $search, $searchBy);
+			$resultToTbl = $User->sortResults("lastname", "Perenimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("email", "Email", $search, $searchBy);
+			$resultToTbl = $User->sortResults("email", "Email", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("phonenumber", "Telefoninumber", $search, $searchBy);
+			$resultToTbl = $User->sortResults("phonenumber", "Telefoninumber", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
 			
-			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
+			$resultToTbl = $User->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("saved", "Päästetud", $search, $searchBy);
+			$resultToTbl = $User->sortResults("saved", "Päästetud", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("baptised", "Ristitud", $search, $searchBy);
+			$resultToTbl = $User->sortResults("baptised", "Ristitud", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
 			$resultTbl .= "<th><center>Staatus</center></th>";

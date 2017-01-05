@@ -7,15 +7,6 @@
 	
 	require("../class/Helper.class.php");
 	$Helper = new Helper();
-	
-	/*
-	// kui on juba sisse loginud siis suunan data lehele
-	if (isset($_SESSION["userId"])){
-		
-		header("Location: data.php");
-		exit();
-		
-	}*/
 
 	// MUUTUJAD
 	$signupUserName = "";

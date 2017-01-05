@@ -5,8 +5,8 @@
 	require("../class/Data.class.php");
 	$Data = new Data($link);
 	
-	require_once("../class/People.class.php");
-	$People = new People($link);
+	require_once("../class/User.class.php");
+	$User = new User($link);
 	
 	require_once("../class/Helper.class.php");
 	$Helper = new Helper();
@@ -28,7 +28,7 @@
 	
 	if (!isset($_GET["id"])) {
 		
-		header("Location: data.php");
+		header("Location: profile.php?id=".$_SESSION["userId"]);
 		exit();
 		
 	} elseif ($_SESSION["rights"] < 5 && $_GET["id"] != $_SESSION["userId"]) {
@@ -42,7 +42,7 @@
 		
 	}
 	
-	$person = $People->getPerson($Helper->cleanInput($_GET["id"]));
+	$person = $User->getPerson($Helper->cleanInput($_GET["id"]));
 	
 ?>
 

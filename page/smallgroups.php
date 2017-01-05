@@ -2,8 +2,8 @@
 	
 	require_once("../functions.php");
 	
-	require_once("../class/People.class.php");
-	$People = new People($link);
+	require_once("../class/User.class.php");
+	$User = new User($link);
 	
 	require_once("../class/Data.class.php");
 	$Data = new Data($link);
@@ -35,7 +35,7 @@
 		
 	}
 	
-	$people = $People->getPpl("", "", "", "");
+	$people = $User->getPpl("", "", "", "");
 	$smallgroups = $Data->getSmallgroups("");
 	
 ?>

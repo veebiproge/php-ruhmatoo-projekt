@@ -5,8 +5,8 @@
 	require("../class/Data.class.php");
 	$Data = new Data($link);
 	
-	require_once("../class/People.class.php");
-	$People = new People($link);
+	require_once("../class/User.class.php");
+	$User = new User($link);
 	
 	require_once("../class/Helper.class.php");
 	$Helper = new Helper();
@@ -28,7 +28,7 @@
 	
 	if (!isset($_GET["id"])) {
 		
-		header("Location: data.php");
+		header("Location: editprofile.php?id=".$_SESSION["userId"]);
 		exit();
 		
 		
@@ -93,16 +93,16 @@
 			
 		}
 		
-		$People->updatePerson($index, "email", $email);
-		$People->updatePerson($index, "phonenumber", $phone);
-		$People->updatePerson($index, "saved", $saved);
-		$People->updatePerson($index, "baptised", $baptised);
+		$User->updatePerson($index, "email", $email);
+		$User->updatePerson($index, "phonenumber", $phone);
+		$User->updatePerson($index, "saved", $saved);
+		$User->updatePerson($index, "baptised", $baptised);
 		
 		header("Location: profile.php?id=".$index);
 		
 	}
 	
-	$person = $People->getPerson($Helper->cleanInput($_GET["id"]));
+	$person = $User->getPerson($Helper->cleanInput($_GET["id"]));
 	
 	foreach ($person[0]->line_of_work as $l) {
 		
@@ -165,7 +165,7 @@
 	}
 
 	
-	$person = $People->getPerson($Helper->cleanInput($_GET["id"]));
+	$person = $User->getPerson($Helper->cleanInput($_GET["id"]));
 	
 ?>
 

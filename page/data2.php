@@ -2,8 +2,8 @@
 	
 	require_once("../functions.php"); 
 	
-	require_once("../class/People.class.php");
-	$People = new People($link);
+	require_once("../class/User.class.php");
+	$User = new User($link);
 	
 	require_once("../class/Data.class.php");
 	$Data = new Data($link);
@@ -67,7 +67,7 @@
 	$gifts = $Data->getFromTableOfTwo("gifts");
 	$courses = $Data->getFromTableOfTwo("courses");
 	$smallgroups = $Data->getSmallgroups("");
-	$results = $People->getPpl($search, $searchBy, $sort, $order);
+	$results = $User->getPpl($search, $searchBy, $sort, $order);
 	
 	foreach($results as $r) {
 		
@@ -99,7 +99,7 @@
 		
 	}
 	
-	$results = $People->getPpl($search, $searchBy, $sort, $order);
+	$results = $User->getPpl($search, $searchBy, $sort, $order);
 	
 ?>
 
@@ -135,25 +135,25 @@
 		$resultTbl .= "<tr>";
 		
 		
-			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
+			$resultToTbl = $User->sortResults("firstname", "Eesnimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("lastname", "Perenimi", $search, $searchBy);
+			$resultToTbl = $User->sortResults("lastname", "Perenimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("line_of_work", "Tööharu", $search, $searchBy);
+			$resultToTbl = $User->sortResults("line_of_work", "Tööharu", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("gift", "Oskused", $search, $searchBy);
+			$resultToTbl = $User->sortResults("gift", "Oskused", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("course", "Kursused", $search, $searchBy);
+			$resultToTbl = $User->sortResults("course", "Kursused", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("smallgroup", "Väikegrupid(osaleja)", $search, $searchBy);
+			$resultToTbl = $User->sortResults("smallgroup", "Väikegrupid(osaleja)", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("sgLeader", "Väikegrupid(juht)", $search, $searchBy);
+			$resultToTbl = $User->sortResults("sgLeader", "Väikegrupid(juht)", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
 			if ($_SESSION["rights"] >= 5) {

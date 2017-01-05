@@ -20,24 +20,6 @@ class Data {
 		
 	}
 	
-	function approve($id) {
-		
-		$stmt = $this->connection->prepare("UPDATE people SET approved = 1 WHERE id = ?");
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
-		$stmt->close();
-		
-	}
-	
-	function archive($id) {
-		
-		$stmt = $this->connection->prepare("UPDATE people SET approved = 2 WHERE id = ?");
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
-		$stmt->close();
-		
-	}
-	
 	function getFromTableOfTwo($table) {
 		
 		$results = array();
@@ -60,27 +42,6 @@ class Data {
 			$result = new Stdclass();
 			$result->id = $id;
 			$result->data = $data;
-			array_push($results, $result);
-		}
-		
-		$stmt->close();
-		return $results;
-		
-	}
-	
-	function getPplInSmallgroup($id) {
-		
-		$results = array();
-		$stmt = $this->connection->prepare("
-			SELECT person, firstname, lastname FROM (SELECT id, smallgroup, person FROM pplInSmallgroups WHERE smallgroup = $id) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.person=t2.id
-		");
-		$stmt->bind_result($person, $firstname, $lastname);
-		$stmt->execute();
-		while ($stmt->fetch()) {
-			$result = new Stdclass();
-			$result->person = $person;
-			$result->fname = $firstname;
-			$result->lname = $lastname;
 			array_push($results, $result);
 		}
 		
@@ -183,10 +144,10 @@ class Data {
 		return;
 	}
 	
-	function updateSmallgroup($index, $leader, $address) {
+	function updateSmallgroup($index, $leader, $address, $meetingTime) {
 		
-		$stmt = $this->connection->prepare("UPDATE smallgroups SET leader = ?, address = ? WHERE id = ?");
-		$stmt->bind_param("isi", $leader, $address, $index);
+		$stmt = $this->connection->prepare("UPDATE smallgroups SET leader = ?, address = ?, meetingTime = ? WHERE id = ?");
+		$stmt->bind_param("issi", $leader, $address, $meetingTime, $index);
 		$stmt->execute();
 		$stmt->close();
 		return;
