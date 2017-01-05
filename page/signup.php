@@ -33,26 +33,13 @@
 	$saved = "";
 	$baptised ="";
 
-	// muutuja kontroll
-	if( isset( $_POST["signupUserName"] ) ){
 	
-		if( empty( $_POST["signupUserName"] ) ){
-			
-			$signupUserNameError = "See väli on kohustuslik";
-			
-		} else {
-			
-			$signupUserName = $_POST["signupUserName"];
-			
-		}
-		
-	} 
 	
 	if( isset( $_POST["signupEmail"] ) ){
 		
 		if( empty( $_POST["signupEmail"] ) ){
 			
-			$signupEmailError = "See väli on kohustuslik";
+			$signupEmailError = "Email on kohustuslik!";
 			
 		} else {
 			 
@@ -66,13 +53,13 @@
 		
 		if( empty( $_POST["signupPassword"] ) ){
 			
-			$signupPasswordError = "Parool on kohustuslik";
+			$signupPasswordError = "Parool on kohustuslik!";
 			
 		} else {
 			
 			if ( strlen($_POST["signupPassword"]) < 8 ) {
 				
-				$signupPasswordError = "Parool peab olema vähemalt 8 tähemärkki pikk";
+				$signupPasswordError = "Parool peab olema vähemalt 8 tähemärkki pikk!";
 			
 			}
 			
@@ -84,7 +71,7 @@
 		
 		if( empty( $_POST["firstname"] ) ){
 			
-			$firstnameError = "See väli on kohustuslik";
+			$firstnameError = "Eesnimi on kohustuslik!";
 			
 		} else {
 			
@@ -98,7 +85,7 @@
 		
 		if( empty( $_POST["lastname"] ) ){
 			
-			$lastnameError = "See väli on kohustuslik";
+			$lastnameError = "Perenimi on kohustuslik!";
 			
 		} else {
 			
