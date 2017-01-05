@@ -127,6 +127,10 @@
 <?php
 
 	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
+	$resultTbl .= "<ul class='nav nav-tabs nav-justified'>";
+		$resultTbl .= "<li role='presentation'><a href='data1.php'>Isikuandmed</a></li>";
+		$resultTbl .= "<li role='presentation'><a href='data2.php'>Teenimisega seonduv</a></li>";
+	$resultTbl .= "</ul>";
 	$resultTbl .= "<table class = 'table' width = '100%'>";
 		$resultTbl .= "<tr>";
 		
