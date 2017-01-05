@@ -30,7 +30,7 @@
 			$header .= "<ul class='nav navbar-nav navbar-right'>";
 				$header .= "<li role='presentation'><a href='profile.php?id=".$_SESSION['userId']."'>Profiil</a></li>";
 				if ($_SESSION["rights"] >= 5) {
-					$header .= "<li role='presentation'><a href='data.php'>Inimesed</a></li>";
+					$header .= "<li role='presentation'><a href='data1.php'>Inimesed</a></li>";
 				}
 				$header .= "<li role='presentation'><a href='smallgroups.php'>Kodugrupid</a></li>";
 				$header .= "<li role='presentation'><a href='lines_of_work.php'>Tööharud</a></li>";

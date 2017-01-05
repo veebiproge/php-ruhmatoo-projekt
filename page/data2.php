@@ -130,19 +130,11 @@
 	$resultTbl .= "<table class = 'table' width = '100%'>";
 		$resultTbl .= "<tr>";
 		
-			$resultToTbl = $People->sortResults("approved", "Aktiveeritud", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
 		
 			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
 			$resultToTbl = $People->sortResults("lastname", "Perenimi", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
-			
-			$resultToTbl = $People->sortResults("email", "Email", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
-			
-			$resultToTbl = $People->sortResults("phonenumber", "Telefoninumber", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
 			$resultToTbl = $People->sortResults("line_of_work", "Tööharu", $search, $searchBy);
@@ -160,15 +152,6 @@
 			$resultToTbl = $People->sortResults("sgLeader", "Väikegrupid(juht)", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
 			
-			$resultToTbl = $People->sortResults("date_of_birth", "Sünnikuupäev", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
-			
-			$resultToTbl = $People->sortResults("saved", "Päästetud", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
-			
-			$resultToTbl = $People->sortResults("baptised", "Ristitud", $search, $searchBy);
-			$resultTbl .= $resultToTbl;
-			
 			if ($_SESSION["rights"] >= 5) {
 				$resultTbl .= "<th></th>";
 			}
@@ -178,15 +161,8 @@
 			foreach($results as $r) {
 				$resultTbl .= "<tr>";
 					$resultTbl .= "<form method = 'POST'>";
-					if ($r->app == 1) {
-						$resultTbl .= "<td><input type = 'submit' name = 'archive".$r->id."' value = 'Arhiveeri'></td>";
-					} else {
-						$resultTbl .= "<td><input type = 'submit' name = 'approve".$r->id."' value = 'Aktiveeri'></td>";
-					}
 					$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
-					$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
-					$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
 					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->line_of_work;
 					$resultTbl .= "<select name = 'lowToJoin'>";
 					foreach ($lines_of_work as $low) {
@@ -224,9 +200,6 @@
 					$resultTbl .= "</td>";
 					$resultTbl .= "</form>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->sgLeader."</td>";
-					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->dob."</td>";
-					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->saved."</td>";
-					$resultTbl .= "<td style = 'text-align:center' width = '100'>".$r->baptised."</td>";
 					if ($_SESSION["rights"] >= 5) {
 						$resultTbl .= "<td style = 'text-align:center' width = '100'> <a class='btn btn-default btn-sm' href = 'profile.php?id=".$r->id."'>Vaata</a> </td>";
 				}
