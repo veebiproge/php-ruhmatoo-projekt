@@ -19,8 +19,7 @@ class User {
 		$error = "";
 
 		$stmt = $this->connection->prepare("
-		SELECT id, username, password, rights
-		FROM people
+		SELECT id, username, password, rights, approved FROM people
 		WHERE username = ? OR email = ?");
 	
 		echo $this->connection->error;
@@ -29,7 +28,7 @@ class User {
 		$stmt->bind_param("ss", $loginId, $loginId);
 		
 		//määran väärtused muutujatesse
-		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb, $rights);
+		$stmt->bind_result($id, $usernameFromDb, $passwordFromDb, $rights, $status);
 		$stmt->execute();
 		
 		//andmed tulid andmebaasist või mitte
@@ -41,21 +40,23 @@ class User {
 			$hash = hash("sha512", $password);
 			if ($hash == $passwordFromDb) {
 				
-				echo "Kasutaja logis sisse ".$id;
+				if ($status == 1) {
+					//määran sessiooni muutujad, millele saan ligi
+					// teistelt lehtedelt
+					$_SESSION["userId"] = $id;
+					$_SESSION["userUsername"] = $usernameFromDb;
+					$_SESSION["rights"] = $rights;
 				
-				//määran sessiooni muutujad, millele saan ligi
-				// teistelt lehtedelt
-				$_SESSION["userId"] = $id;
-				$_SESSION["userUsername"] = $usernameFromDb;
-				$_SESSION["rights"] = $rights;
+					header("Location: profile.php?id=".$_SESSION["userId"]);
+					exit();
+				} else {
+					$error = "Kasutaja pole veel aktiveeritud.";
+				}
 				
-				$_SESSION["message"] = "<h1>Tere tulemast!</h1>";
+			} else {
 				
-				header("Location: profile.php?id=".$_SESSION["userId"]);
-				exit();
-				
-			}else {
 				$error = "Sisse logimise andmed pole õiged, proovi uuesti!";
+				
 			}
 			
 		} else {
