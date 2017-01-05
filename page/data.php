@@ -75,35 +75,25 @@
 			
 			$Data->addAttribute("l_o_wOnPpl", $Helper->cleanInput($_POST['lowToJoin']), $r->id);
 			
-		}
-		
-	}
-	
-	foreach($results as $r) {
-		
-		if (isset($_POST['gToJoin']) && isset($_POST["addG".$r->id])) {
+		} elseif (isset($_POST['gToJoin']) && isset($_POST["addG".$r->id])) {
 			
 			$Data->addAttribute("giftsOnPpl", $Helper->cleanInput($_POST['gToJoin']), $r->id);
 			
-		}
-		
-	}
-	
-	foreach($results as $r) {
-		
-		if (isset($_POST['cToJoin']) && isset($_POST["addC".$r->id])) {
+		} elseif (isset($_POST['cToJoin']) && isset($_POST["addC".$r->id])) {
 			
 			$Data->addAttribute("pplInCourses", $Helper->cleanInput($_POST['cToJoin']), $r->id);
 			
-		}
-		
-	}
-	
-	foreach($results as $r) {
-		
-		if (isset($_POST['sgToJoin']) && isset($_POST["addSg".$r->id])) {
+		} elseif (isset($_POST['sgToJoin']) && isset($_POST["addSg".$r->id])) {
 			
 			$Data->addAttribute("pplInSmallgroups", $Helper->cleanInput($_POST['sgToJoin']), $r->id);
+			
+		} elseif (isset($_POST["approve".$r->id])) {
+			
+			$Data->approve($r->id);
+			
+		} elseif (isset($_POST["archive".$r->id])) {
+			
+			$Data->archive($r->id);
 			
 		}
 		
@@ -137,7 +127,7 @@
 <?php
 
 	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
-	$resultTbl .= "<table class = 'table'>";
+	$resultTbl .= "<table class = 'table' width = '100%'>";
 		$resultTbl .= "<tr>";
 		
 			$resultToTbl = $People->sortResults("approved", "Aktiveeritud", $search, $searchBy);
@@ -187,12 +177,16 @@
 		
 			foreach($results as $r) {
 				$resultTbl .= "<tr>";
-					$resultTbl .= "<td style = 'text-align:center'>".$r->app."</td>";
+					$resultTbl .= "<form method = 'POST'>";
+					if ($r->app == 1) {
+						$resultTbl .= "<td><input type = 'submit' name = 'archive".$r->id."' value = 'Arhiveeri'></td>";
+					} else {
+						$resultTbl .= "<td><input type = 'submit' name = 'approve".$r->id."' value = 'Aktiveeri'></td>";
+					}
 					$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->phonenumber."</td>";
-					$resultTbl .= "<form method = 'POST'>";
 					$resultTbl .= "<td class = '2liner' style = 'text-align:center'>".$r->line_of_work;
 					$resultTbl .= "<select name = 'lowToJoin'>";
 					foreach ($lines_of_work as $low) {

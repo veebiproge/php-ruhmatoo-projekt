@@ -20,6 +20,24 @@ class Data {
 		
 	}
 	
+	function approve($id) {
+		
+		$stmt = $this->connection->prepare("UPDATE people SET approved = 1 WHERE id = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$stmt->close();
+		
+	}
+	
+	function archive($id) {
+		
+		$stmt = $this->connection->prepare("UPDATE people SET approved = 2 WHERE id = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$stmt->close();
+		
+	}
+	
 	function getFromTableOfTwo($table) {
 		
 		$results = array();

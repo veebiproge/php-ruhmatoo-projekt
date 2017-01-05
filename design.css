@@ -57,8 +57,9 @@
 	
 	.container-fluid {
 		width: 100%;
-		background-image: url("../TheCross.jpg");
-		background-repeat: repeat-y;
+		
+		background-image: url("../bgImage.png");
+		background-size: cover;
 		min-height: 100vh;
 	}
 	
