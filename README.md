@@ -3,6 +3,7 @@
 
 1. **Projekti veebirakenduse pilt:**
 	* Veebirakenduse pilt
+	* <img src = "bgImage.png">
 
 
 1. **Liikmed:**
