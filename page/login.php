@@ -9,7 +9,7 @@
 	require("../class/Helper.class.php");
 	$Helper = new Helper();
 	
-	//muutujad
+	
 	$error ="";
 	
 	// kui on juba sisse loginud siis suunan data lehele
