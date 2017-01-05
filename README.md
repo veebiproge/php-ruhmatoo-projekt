@@ -3,7 +3,7 @@
 
 1. **Projekti veebirakenduse pilt:**
 	* Veebirakenduse pilt
-	* <img src = "bgImage.png">
+	* <img src = "Veebirakendusepilt.png">
 
 
 1. **Liikmed:**
@@ -33,6 +33,7 @@
 1. **Andmebaasi skeem + tabelite SQL laused:**
 	* Skeem
 		* Skeemi pilt
+		* <img src = "Andmebaasipilt.png">
 
 	* Laused
 		 * CREATE TABLE `people` (
