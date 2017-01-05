@@ -12,12 +12,18 @@
 
 	
 1. **Eesmärk:**
-	* Andmebaas kirikule...........
+	* Andmebaas kirikule, kus oleks mugav:
+		* Hallata inimesi ja nendega seonduvat infot:
+			* Liikmete kohta andmed, oskused
+			* Millistest kursustest, väikegruppidest, tööharudest, jne. võetakse osa
 	
 	
 1. **Kirjeldus:**
 	* Sihtrühm - Kirik 
-	* Eripära...
+	* Eripära: Koguduse liikmete haldamiseks vajalikud vahendid, eestikeelne
+	* Sarnased rakendused:
+		* Tallinna Ülikooli siseveeb
+		* excellerate Church Software
 	
 	
 1. **Funktsionaalsuse loetelu:**
@@ -134,7 +140,8 @@
 	
 1. **Kokkuvõte:**
 	* Rando 
-		* Kokkuvõte
+		* Kõigerohkem sain teadmisi juurde kujundamise vallas. Mitte võib-olla, et milline on hea kujundus, aga sain kogemuse ise kujundada lehte. See oli samuti ka kõigesuurem valupunkt. Paigutused liikusid tihti paigast ära ja
+		mõnes kohas tuli lõpuks teha kompromiss, et asjad joonduksid. Samuti tuli teha mõni keerukam SQL lause, aga see oli erinevalt kujundamisest põnev.
 	* Oskar
 		* Oskari kokkuvõte
 	
