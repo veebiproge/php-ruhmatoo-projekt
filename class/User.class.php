@@ -55,13 +55,13 @@ class User {
 				exit();
 				
 			}else {
-				$error = "vale parool";
+				$error = "Sisse logimise andmed pole õiged, proovi uuesti!";
 			}
 			
 		} else {
 			
 			// ei leidnud kasutajat selle meiliga
-			$error = "ei ole sellist emaili";
+			$error = "Sisse logimise andmed pole õiged, proovi uuesti!";
 		}
 		
 		return $error;

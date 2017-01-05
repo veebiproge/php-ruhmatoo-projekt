@@ -1,6 +1,6 @@
 <?php
 	
-	require_once("../functions.php");
+	require_once("../functions.php"); 
 	
 	require_once("../class/People.class.php");
 	$People = new People($link);
@@ -119,6 +119,7 @@
 	Otsing:	
 	<input type = "text" name = "search">
 	<select name = "searchBy">
+		<option value = "approved"> Aktiveeritud </option>
 		<option value = "firstname"> Eesnimi </option>
 		<option value = "lastname"> Perenimi </option>
 		<option value = "email"> Email </option>
@@ -138,6 +139,9 @@
 	$resultTbl = "<style>td.2liner {word-wrap: break-word; width:2em;}</style>";
 	$resultTbl .= "<table class = 'table'>";
 		$resultTbl .= "<tr>";
+		
+			$resultToTbl = $People->sortResults("approved", "Aktiveeritud", $search, $searchBy);
+			$resultTbl .= $resultToTbl;
 		
 			$resultToTbl = $People->sortResults("firstname", "Eesnimi", $search, $searchBy);
 			$resultTbl .= $resultToTbl;
@@ -183,6 +187,7 @@
 		
 			foreach($results as $r) {
 				$resultTbl .= "<tr>";
+					$resultTbl .= "<td style = 'text-align:center'>".$r->app."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->fname."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->lname."</td>";
 					$resultTbl .= "<td style = 'text-align:center'>".$r->email."</td>";

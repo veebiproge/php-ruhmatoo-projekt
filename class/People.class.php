@@ -8,8 +8,8 @@ class People {
 	}
 	
 	function getPpl($searchValue, $searchOption, $sort, $order) {
-		$allowedSearch = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber", "smallgroups", "courses"];
-		$allowedSort = ["firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber", "smallgroups", "courses"];
+		$allowedSearch = ["approved", "firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber", "smallgroups", "courses"];
+		$allowedSort = ["approved", "firstname", "lastname", "email", "date_of_birth", "saved", "baptised", "line_of_work", "phonenumber", "smallgroups", "courses"];
 		
 		if(!in_array($searchOption, $allowedSearch)) {
 			$searchOption = "id";
@@ -27,8 +27,8 @@ class People {
 		
 		$results = array();
 		$stmt = $this->connection->prepare("
-			SELECT t1.id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised, line_of_work, gift, course, smallgroup, sgName  FROM
-			(SELECT id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people) AS t1
+			SELECT t1.id, approved, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised, line_of_work, gift, course, smallgroup, sgName  FROM
+			(SELECT id, approved, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people) AS t1
 			LEFT JOIN
 			(SELECT person, GROUP_CONCAT(line_of_work.line_of_work) AS line_of_work FROM l_o_wOnPpl 
 			JOIN 
@@ -51,11 +51,12 @@ class People {
 		");
 		$searchValue = '%'.$searchValue.'%';
 		$stmt->bind_param("s", $searchValue);
-		$stmt->bind_result($id, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised, $line_of_work, $gift, $course, $smallgroup, $sgLeader);
+		$stmt->bind_result($id, $app, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised, $line_of_work, $gift, $course, $smallgroup, $sgLeader);
 		$stmt->execute();
 		while ($stmt->fetch()) {
 			$result = new Stdclass();
 			$result->id = $id;
+			$result->app = $app;
 			$result->fname = $fname;
 			$result->lname = $lname;
 			$result->email = $email;
@@ -79,13 +80,14 @@ class People {
 		
 		$results = array();
 		$stmt = $this->connection->prepare("
-			SELECT id, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people WHERE id = $index
+			SELECT id, approved, firstname, lastname, email, phonenumber, date_of_birth, saved, baptised FROM people WHERE id = $index
 		");
-		$stmt->bind_result($id, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised);
+		$stmt->bind_result($id, $app, $fname, $lname, $email, $phonenumber, $dob, $saved, $baptised);
 		$stmt->execute();
 		while ($stmt->fetch()) {
 			$result = new Stdclass();
 			$result->id = $id;
+			$result->app = $app;
 			$result->fname = $fname;
 			$result->lname = $lname;
 			$result->email = $email;
