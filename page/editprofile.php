@@ -52,6 +52,19 @@
 		
 	}
 	
+	if (isset($_POST["baptised_y"]) && isset($_POST["baptised_m"]) && isset($_POST["baptised_d"])) {
+		
+		$baptised_d = $Helper->cleanInput($_POST["baptised_d"]);
+		$baptised_m = $Helper->cleanInput($_POST["baptised_m"]);
+		$baptised_y = $Helper->cleanInput($_POST["baptised_y"]);
+		if ($baptised_d == "0" OR $baptised_m == "0" OR $baptised_y == "0") {
+			$baptised = "0000-00-00";
+		} else {
+			$baptised = $baptised_y."-".$baptised_m."-".$baptised_d;
+		}
+		
+	}
+	
 	if (isset($_POST["saved_y"]) && isset($_POST["saved_m"]) && isset($_POST["saved_d"])) {
 		
 		$saved_d = $Helper->cleanInput($_POST["saved_d"]);
@@ -189,7 +202,7 @@
 					
 					$dataHtml .= "<tr>";
 						$dataHtml .= "<th>Email: </th>";
-						$dataHtml .= "<td><input type = 'text' name = 'email' class = 'form-control' value = '".$person[0]->email."'></td>";
+						$dataHtml .= "<td><input type = 'email' name = 'email' class = 'form-control' value = '".$person[0]->email."'></td>";
 					$dataHtml .= "</tr>";
 					
 					$dataHtml .= "<tr>";

@@ -28,9 +28,10 @@
 	
 	if (isset($_POST["smallgroupName"]) && !empty($_POST["smallgroupName"]) &&
 		isset($_POST["smallgroupAddress"]) && !empty($_POST["smallgroupAddress"]) &&
+		isset($_POST["smallgroupMeetingTime"]) && !empty($_POST["smallgroupMeetingTime"]) &&
 		isset($_POST["smallgroupLeader"])) {
 		
-		$Data->saveSmallgroup($Helper->cleanInput($_POST["smallgroupName"]), $Helper->cleanInput($_POST["smallgroupAddress"]), $Helper->cleanInput($_POST["smallgroupLeader"]));
+		$Data->saveSmallgroup($Helper->cleanInput($_POST["smallgroupName"]), $Helper->cleanInput($_POST["smallgroupAddress"]), $Helper->cleanInput($_POST["smallgroupLeader"]), $Helper->cleanInput($_POST["smallgroupMeetingTime"]));
 		
 	}
 	
@@ -76,6 +77,11 @@
 						$dataHtml .= "<tr>";
 							$dataHtml .= "<th>Aadress:</th>";
 							$dataHtml .= "<td><input type = 'text' name = 'smallgroupAddress'></td>";
+						$dataHtml .= "</tr>";
+						
+						$dataHtml .= "<tr>";
+							$dataHtml .= "<th>Kohtumise aeg:</th>";
+							$dataHtml .= "<td><input type = 'text' name = 'smallgroupMeetingTime'></td>";
 						$dataHtml .= "</tr>";
 						
 						$dataHtml .= "<tr>";

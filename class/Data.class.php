@@ -77,15 +77,15 @@ class Data {
 		
 		if ($index != "") {
 			$stmt = $this->connection->prepare("
-				SELECT t1.id, name, address, firstname, lastname, t2.id FROM (SELECT * FROM smallgroups WHERE id = ?) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.leader=t2.id
+				SELECT t1.id, name, address, firstname, lastname, t2.id, email, meetingTime FROM (SELECT * FROM smallgroups WHERE id = ?) AS t1 JOIN (SELECT id, firstname, lastname, email FROM people) AS t2 ON t1.leader=t2.id
 			");
 			$stmt->bind_param("s", $index);
 		} else {
 			$stmt = $this->connection->prepare("
-				SELECT t1.id, name, address, firstname, lastname, t2.id FROM (SELECT * FROM smallgroups) AS t1 JOIN (SELECT id, firstname, lastname FROM people) AS t2 ON t1.leader=t2.id
+				SELECT t1.id, name, address, firstname, lastname, t2.id, email, meetingTime FROM (SELECT * FROM smallgroups) AS t1 JOIN (SELECT id, firstname, lastname, email FROM people) AS t2 ON t1.leader=t2.id
 			");
 		}
-		$stmt->bind_result($id, $name, $address, $leaderFirstname, $leaderLastname, $leaderId);
+		$stmt->bind_result($id, $name, $address, $leaderFirstname, $leaderLastname, $leaderId, $leaderEmail, $meetingTime);
 		$stmt->execute();
 		
 		while ($stmt->fetch()) {
@@ -96,6 +96,8 @@ class Data {
 			$result->leaderFirstname = $leaderFirstname;
 			$result->leaderLastname = $leaderLastname;
 			$result->leaderId = $leaderId;
+			$result->leaderEmail = $leaderEmail;
+			$result->meetingTime = $meetingTime;
 			array_push($results, $result);
 		}
 		
@@ -154,10 +156,10 @@ class Data {
 		return;
 	}
 	
-	function saveSmallgroup($name, $address, $leader) {
+	function saveSmallgroup($name, $address, $leader, $meetingTime) {
 		
-		$stmt = $this->connection->prepare("INSERT INTO smallgroups VALUES (DEFAULT, ?, ?, ?)");
-		$stmt->bind_param("ssi", $name, $address, $leader);
+		$stmt = $this->connection->prepare("INSERT INTO smallgroups VALUES (DEFAULT, ?, ?, ?, ?)");
+		$stmt->bind_param("ssis", $name, $address, $leader, $meetingTime);
 		$stmt->execute();
 		$stmt->close();
 		return;

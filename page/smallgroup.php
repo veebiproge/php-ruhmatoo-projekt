@@ -63,15 +63,18 @@
 		
 	}
 	
-	if (!in_array($_SESSION["userId"], $idsInGroup)) {
+	if ((!in_array($_SESSION["userId"], $idsInGroup)) AND ($_SESSION["userId"] != $smallgroup[0]->leaderId) AND ($_SESSION["rights"] < 5)) {
 		
-		header("Location: profile.php?id=".$_SESSION["userId"]);
-		exit();
+		//header("Location: profile.php?id=".$_SESSION["userId"]);
+		//exit();
 		
 	}
 	
 	$pplInSmallgroup = $Data->getPplInSmallgroup($Helper->cleanInput($_GET["id"]));
 	
+	if ($_SESSION["userId"] != $smallgroup[0]->leaderId) {
+		echo "tere";
+	}
 	
 ?>
 
@@ -106,26 +109,39 @@
 					$dataHtml .= "</tr>";
 					
 					$dataHtml .= "<tr>";
-						$dataHtml .= "<th> Aadress: </th>";
-						if ($_SESSION["rights"] >= 5 OR $smallgroup[0]->leaderId == $_SESSION["userId"]) {
-							$dataHtml .= "<td colspan = '2'><input type = 'text' name = 'address' value = '".$smallgroup[0]->address."'></td>";
-						} else {
-							$dataHtml .= "<td colspan = '2'>".$smallgroup[0]->address."</td>";
-						}
+						$dataHtml .= "<th> Juhi kontakt: </th>";
+						$dataHtml .= "<td colspan = '2'>".$smallgroup[0]->leaderEmail."</td>";
 					$dataHtml .= "</tr>";
 					
-					$dataHtml .= "<tr><th rowspan = ".$numberOfMembers.">Liikmed:</th>";
-					foreach($pplInSmallgroup as $m) {
-						if ($m != $pplInSmallgroup[0]) {$dataHtml .= "<tr>";}
-						$dataHtml .= "<td>".$m->fname." ".$m->lname."</td>";
-						if ($m->person == $_SESSION["userId"]) {
-							$dataHtml .= "<td><center><input type = 'submit' name = 'del".$m->person."' value = 'Eemalda'></center></td></tr>";
-						} else {
+					$dataHtml .= "<tr>";
+						$dataHtml .= "<th> Kohtume: </th>";
+						$dataHtml .= "<td colspan = '2'>".$smallgroup[0]->meetingTime."</td>";
+					$dataHtml .= "</tr>";
+					
+					if ((in_array($_SESSION["userId"], $idsInGroup)) OR ($_SESSION["userId"] == $smallgroup[0]->leaderId) OR ($_SESSION["rights"] >= 5)) {
+						$dataHtml .= "<tr>";
+							$dataHtml .= "<th> Aadress: </th>";
+							if ($_SESSION["rights"] >= 5 OR $smallgroup[0]->leaderId == $_SESSION["userId"]) {
+								$dataHtml .= "<td colspan = '2'><input type = 'text' name = 'address' value = '".$smallgroup[0]->address."'></td>";
+							} else {
+								$dataHtml .= "<td colspan = '2'>".$smallgroup[0]->address."</td>";
+							}
+						$dataHtml .= "</tr>";
+					
+					
+						$dataHtml .= "<tr><th rowspan = ".$numberOfMembers.">Liikmed:</th>";
+						foreach($pplInSmallgroup as $m) {
+							if ($m != $pplInSmallgroup[0]) {$dataHtml .= "<tr>";}
+							$dataHtml .= "<td>".$m->fname." ".$m->lname."</td>";
+							if ($m->person == $_SESSION["userId"]) {
+								$dataHtml .= "<td><center><input type = 'submit' name = 'del".$m->person."' value = 'Eemalda'></center></td></tr>";
+							} else {
+								$dataHtml .= "<td></td></tr>";
+							}
+						}
+						if ($numberOfMembers == 0) {
 							$dataHtml .= "<td></td></tr>";
 						}
-					}
-					if ($numberOfMembers == 0) {
-						$dataHtml .= "<td></td></tr>";
 					}
 					
 					if ($_SESSION["rights"] >= 5 OR $smallgroup[0]->leaderId == $_SESSION["userId"]) {
