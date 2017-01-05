@@ -109,7 +109,6 @@
 	Otsing:	
 	<input type = "text" name = "search">
 	<select name = "searchBy">
-		<option value = "approved"> Aktiveeritud </option>
 		<option value = "firstname"> Eesnimi </option>
 		<option value = "lastname"> Perenimi </option>
 		<option value = "email"> Email </option>
@@ -130,6 +129,7 @@
 	$resultTbl .= "<ul class='nav nav-tabs nav-justified'>";
 		$resultTbl .= "<li role='presentation'><a href='data1.php'>Isikuandmed</a></li>";
 		$resultTbl .= "<li role='presentation'><a href='data2.php'>Teenimisega seonduv</a></li>";
+		$resultTbl .= "<li role='presentation'><a href='signup.php'>Lisa uus inimene</a></li>";
 	$resultTbl .= "</ul>";
 	$resultTbl .= "<table class = 'table' width = '100%'>";
 		$resultTbl .= "<tr>";

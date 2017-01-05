@@ -14,7 +14,7 @@
 		
 	}
 	
-	tr + tr { border-top: 1px solid; }
+	tr + tr { border-top: 1px solid #d0d7e2; }
 	
 	th.smTbl{
 		height: 25px;

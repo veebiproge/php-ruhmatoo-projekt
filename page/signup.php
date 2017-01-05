@@ -8,13 +8,14 @@
 	require("../class/Helper.class.php");
 	$Helper = new Helper();
 	
+	/*
 	// kui on juba sisse loginud siis suunan data lehele
 	if (isset($_SESSION["userId"])){
 		
 		header("Location: data.php");
 		exit();
 		
-	}
+	}*/
 
 	// MUUTUJAD
 	$signupUserName = "";
@@ -412,12 +413,16 @@
 					
 				</form>
 			
-					<form action="login.php">
-						<input type="submit" class="btn btn-info btn-sm btn-block btn-block hidden-xs" value="Kasutaja juba olemas?">
-						<input type="submit" class="btn btn-info btn-sm btn-block btn-block visible-xs-block" value="Kasutaja juba olemas?">
-					</form>
-					<br>
-					<br>
+				<?php if(!isset($_SESSION["userId"])) {
+					
+					$html = "<form action='login.php'>";
+						$html .= "<input type='submit' class='btn btn-info btn-sm btn-block btn-block hidden-xs' value='Kasutaja juba olemas?'>";
+						$html .= "<input type='submit' class='btn btn-info btn-sm btn-block btn-block visible-xs-block' value='Kasutaja juba olemas?'>";
+					$html .= "</form>";
+					$html .= "<br><br>";
+					echo $html;
+					
+				} ?>
 				
 			</div>
 
