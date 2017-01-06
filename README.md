@@ -143,7 +143,8 @@
 		* Kõigerohkem sain teadmisi juurde kujundamise vallas. Mitte võib-olla, et milline on hea kujundus, aga sain kogemuse ise kujundada lehte. See oli samuti ka kõigesuurem valupunkt. Paigutused liikusid tihti paigast ära ja
 		mõnes kohas tuli lõpuks teha kompromiss, et asjad joonduksid. Samuti tuli teha mõni keerukam SQL lause, aga see oli erinevalt kujundamisest põnev.
 	* Oskar
-		* Oskari kokkuvõte
+		* Esimene suurem kokkupuude PHP'ga kirjutades koos veebirakendust. Õppisin, et juba üsna väikse projekti puhul on väga tähtis failide struktuur ja nende paigutamine õigetesse kategooriatesse - faile tekkis üsna palju. Kokkupuude ja töötamine Gitiga oli ka väga positiivne. 
+		Enim keeruliseks osutus hilisemas faasis lahenduste juurde kirjutamine.
 	
 	
 	
