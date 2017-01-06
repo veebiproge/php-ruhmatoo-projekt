@@ -246,7 +246,7 @@ class User {
 					header("Location: profile.php?id=".$_SESSION["userId"]);
 					exit();
 				} else {
-					$error = "Kasutaja pole veel aktiveeritud.";
+					$error = "Kasutaja pole aktiveeritud.";
 				}
 				
 			} else {
